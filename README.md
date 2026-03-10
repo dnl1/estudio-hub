@@ -11,6 +11,16 @@ npm run dev
 
 Abra `http://localhost:3000`.
 
+## Export estático
+
+O projeto está configurado como static export (`output: "export"`).
+
+```bash
+npm run build
+```
+
+Arquivos gerados em `out/`.
+
 ## Estrutura
 
 SPA de página única em `/`, com seções navegáveis por âncora:
