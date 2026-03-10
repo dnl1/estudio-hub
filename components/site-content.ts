@@ -4,14 +4,14 @@ export type LinkItem = {
 };
 
 export const navLinks: LinkItem[] = [
-  { href: "/", label: "Home" },
-  { href: "/funcionalidades", label: "Funcionalidades" },
-  { href: "/planos", label: "Planos" },
-  { href: "/para-quem", label: "Para Quem" },
-  { href: "/integracoes", label: "Integrações" },
-  { href: "/seguranca-governanca", label: "Segurança" },
-  { href: "/sobre", label: "Sobre" },
-  { href: "/contato", label: "Contato / Demo" }
+  { href: "#home", label: "Home" },
+  { href: "#funcionalidades", label: "Funcionalidades" },
+  { href: "#planos", label: "Planos" },
+  { href: "#para-quem", label: "Para Quem" },
+  { href: "#integracoes", label: "Integrações" },
+  { href: "#seguranca", label: "Segurança" },
+  { href: "#sobre", label: "Sobre" },
+  { href: "#contato", label: "Contato / Demo" }
 ];
 
 export const modules = [

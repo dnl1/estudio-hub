@@ -11,14 +11,15 @@ npm run dev
 
 Abra `http://localhost:3000`.
 
-## Páginas
+## Estrutura
 
-- `/` Home
-- `/funcionalidades`
-- `/planos`
-- `/para-quem`
-- `/integracoes`
-- `/seguranca-governanca`
-- `/sobre`
-- `/contato`
-- `/login`
+SPA de página única em `/`, com seções navegáveis por âncora:
+
+- `#home`
+- `#funcionalidades`
+- `#planos`
+- `#para-quem`
+- `#integracoes`
+- `#seguranca`
+- `#sobre`
+- `#contato`
