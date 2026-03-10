@@ -68,8 +68,8 @@ export function SiteFooter() {
         <div>
           <p className="brand">EstudioHub</p>
           <p>
-            Plataforma SaaS multi-tenant para gestão de estúdios: agenda, consumo, estoque,
-            pagamentos, comunicação e governança em um só ecossistema.
+            Plataforma completa para gestão de estúdios: agenda, consumo, estoque, pagamentos e
+            comunicação em um só lugar.
           </p>
         </div>
         <div>

@@ -9,7 +9,7 @@ export const navLinks: LinkItem[] = [
   { href: "#planos", label: "Planos" },
   { href: "#para-quem", label: "Para Quem" },
   { href: "#integracoes", label: "Integrações" },
-  { href: "#seguranca", label: "Segurança" },
+  { href: "#seguranca", label: "Confiança" },
   { href: "#sobre", label: "Sobre" },
   { href: "#contato", label: "Contato / Demo" }
 ];
@@ -36,14 +36,14 @@ export const modules = [
       "Acompanhe produtos, categorias, saldo por estúdio e movimentações com trilha auditável para reduzir ruptura e divergência de saldo."
   },
   {
-    title: "Importação XML NF-e",
+    title: "Entrada rápida de produtos",
     description:
-      "Dê entrada de mercadoria com importação de XML em minutos, com tentativa de vínculo por produto e sinalização de itens que exigem mapeamento."
+      "Agilize a entrada de mercadorias e mantenha o estoque atualizado sem processos demorados."
   },
   {
     title: "Pagamentos e Conciliação",
     description:
-      "Configure gateway por organização, acompanhe checkout e webhooks com rastreio de transações e histórico confiável de eventos de pagamento."
+      "Acompanhe pagamentos em um só painel e reduza falhas de conferência no fechamento."
   },
   {
     title: "Comunicação via WhatsApp",
@@ -53,19 +53,19 @@ export const modules = [
   {
     title: "Gestão Multiunidade",
     description:
-      "Administre organizações, unidades, usuários e permissões com troca de organização ativa e operação centralizada."
+      "Centralize unidades e equipe em uma visão única para expandir com mais controle."
   },
   {
     title: "Auditoria e Relatórios",
     description:
-      "Mantenha trilha de ações sensíveis, geração assíncrona de relatórios e visão operacional para decisões mais rápidas."
+      "Tenha histórico e indicadores para acompanhar resultados e tomar decisões com confiança."
   }
 ];
 
 export const howItWorks = [
-  "1. Configure sua organização, unidades, salas e integrações operacionais.",
+  "1. Configure unidades, salas e regras da sua operação em poucos passos.",
   "2. Organize agenda e mensalistas em poucos cliques, sem conflito de horário.",
-  "3. Registre consumo e estoque durante o atendimento, com histórico completo.",
+  "3. Registre consumo e estoque durante o atendimento, sem perder informações.",
   "4. Acompanhe pagamentos, notificações e indicadores em uma visão central."
 ];
 
@@ -74,7 +74,7 @@ export const benefits = [
   "Mais controle de receita por ensaio e por unidade.",
   "Equipe alinhada com processos padronizados.",
   "Decisões mais rápidas com dados confiáveis.",
-  "Escala com governança para operações multiunidade.",
+  "Crescimento com organização para operações com mais de uma unidade.",
   "Centralização de agenda, consumo, estoque e cobrança."
 ];
 
@@ -87,7 +87,7 @@ export const useCases = [
   {
     title: "Estúdios de gravação",
     description:
-      "Padronize reservas por ambiente e mantenha rastreabilidade financeira-operacional."
+      "Padronize reservas por ambiente e mantenha controle financeiro do dia a dia."
   },
   {
     title: "Escolas de música",
@@ -117,14 +117,14 @@ export const plans = [
     points: [
       "Mais capacidade por quantidade de salas.",
       "Integrações operacionais e relatórios avançados.",
-      "Mais governança para gestão de equipe."
+      "Mais controle para gestão da equipe."
     ]
   },
   {
     title: "Scale",
-    subtitle: "Para multiunidade",
+    subtitle: "Para expansão",
     points: [
-      "Gestão global de organizações e unidades.",
+      "Gestão central de unidades e equipe.",
       "Fluxos administrativos centralizados.",
       "Recomendado para operação com alta demanda."
     ]

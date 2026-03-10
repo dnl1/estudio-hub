@@ -4,11 +4,11 @@ export default function HomePage() {
   return (
     <main id="home" className="spa-main">
       <section className="container hero hero-panel">
-        <p className="eyebrow">SaaS para gestão operacional de estúdios</p>
+        <p className="eyebrow">Gestão completa para estúdios</p>
         <h1>Seu estúdio no controle: agenda, comandas, estoque e cobranças em um só lugar.</h1>
         <p className="lead">
           Organize reservas, acompanhe consumo por ensaio e gerencie operação por unidade com visão
-          completa do negócio. Não é só agenda: é o sistema operacional do estúdio.
+          completa do negócio. Não é só agenda: é o coração da gestão do estúdio.
         </p>
         <div className="cta-row">
           <a className="btn btn-primary" href="#contato">
@@ -22,15 +22,15 @@ export default function HomePage() {
         <div className="hero-panels">
           <article className="glass-card">
             <h3>Tudo em um só lugar</h3>
-            <p>Agenda, comandas, estoque, pagamentos, comunicação e auditoria em fluxo único.</p>
+            <p>Agenda, comandas, estoque, pagamentos e comunicação em um único fluxo.</p>
           </article>
           <article className="glass-card">
-            <h3>Do operacional ao estratégico</h3>
-            <p>Saia do improviso com dados confiáveis para gestão diária e decisão de crescimento.</p>
+            <h3>Do dia a dia ao crescimento</h3>
+            <p>Saia do improviso com dados claros para decisões rápidas e melhores resultados.</p>
           </article>
           <article className="glass-card">
             <h3>Pronto para crescer com seu estúdio</h3>
-            <p>Estrutura preparada para 1 unidade ou operação multiunidade com governança central.</p>
+            <p>Funciona para estúdios menores e acompanha seu crescimento sem complicar a rotina.</p>
           </article>
         </div>
       </section>
@@ -55,14 +55,14 @@ export default function HomePage() {
         <p>
           O EstudioHub centraliza a rotina do estúdio da reserva à comanda, do estoque ao
           pagamento, da confirmação ao relatório. Você ganha previsibilidade da agenda,
-          controle financeiro-operacional e capacidade de escala com governança.
+          controle financeiro e organização para crescer com segurança.
         </p>
       </section>
 
       <section className="container section section-panel" id="funcionalidades">
         <div className="section-head">
           <p className="eyebrow">Funcionalidades</p>
-          <h2>Módulos conectados para gestão operacional de ponta a ponta.</h2>
+          <h2>Ferramentas conectadas para simplificar toda a operação.</h2>
         </div>
         <div className="cards-grid">
           {modules.map((item) => (
@@ -104,7 +104,7 @@ export default function HomePage() {
 
       <section className="container section section-panel" id="planos">
         <div className="section-head">
-          <p className="eyebrow">Planos e licenciamento</p>
+          <p className="eyebrow">Planos</p>
           <h2>Planos por capacidade real de operação.</h2>
         </div>
         <div className="stage-grid">
@@ -170,7 +170,7 @@ export default function HomePage() {
         <div className="cards-grid">
           <article className="module-card">
             <h3>Mercado Pago e PagBank</h3>
-            <p>Checkout PIX, webhooks e rastreio de transações por organização.</p>
+            <p>Receba no PIX com mais controle de pagamentos e menos trabalho manual.</p>
           </article>
           <article className="module-card">
             <h3>WhatsApp (Meta)</h3>
@@ -185,21 +185,21 @@ export default function HomePage() {
 
       <section className="container section section-panel" id="seguranca">
         <div className="section-head">
-          <p className="eyebrow">Segurança e Governança</p>
-          <h2>Controle robusto para operação multi-organização.</h2>
+          <p className="eyebrow">Confiança e controle</p>
+          <h2>Sua operação com segurança, organização e histórico claro.</h2>
         </div>
         <div className="trust-grid">
           <article className="trust-card">
-            <h3>Isolamento por organização</h3>
-            <p>Arquitetura multi-tenant com escopo por OrganizationId.</p>
+            <h3>Dados organizados por unidade</h3>
+            <p>Cada unidade mantém sua rotina bem definida, com visão clara para a gestão.</p>
           </article>
           <article className="trust-card">
             <h3>Perfis e permissões</h3>
-            <p>Perfis Admin, Manager e Staff para separar responsabilidades com segurança.</p>
+            <p>Defina quem pode ver e fazer cada ação para evitar erros e retrabalho.</p>
           </article>
           <article className="trust-card">
             <h3>Auditoria e rastreabilidade</h3>
-            <p>Trilha de ações sensíveis com filtros e retenção automática.</p>
+            <p>Histórico de ações importantes para dar transparência e apoiar decisões.</p>
           </article>
         </div>
       </section>
@@ -213,7 +213,7 @@ export default function HomePage() {
           <article className="trust-card">
             <h3>Visão de produto</h3>
             <p>
-              Ser o sistema operacional de referência para estúdios, conectando agenda, consumo,
+              Ser a plataforma de referência para estúdios, conectando agenda, consumo,
               estoque, cobrança e gestão administrativa.
             </p>
           </article>
@@ -230,7 +230,7 @@ export default function HomePage() {
       <section className="container section section-panel cta-final" id="contato">
         <h2>Transforme a gestão do seu estúdio em uma operação previsível e escalável.</h2>
         <p>
-          Solicite uma demonstração e receba um diagnóstico operacional com recomendação por porte
+          Solicite uma demonstração e receba um diagnóstico da sua operação com recomendação por porte
           da sua operação.
         </p>
         <div className="cta-row">
