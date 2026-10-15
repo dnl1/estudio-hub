@@ -23,7 +23,7 @@ capturas), .NET 8 + Postgres 17 (Docker) + Vite (só para as capturas, fora do s
 
 ## Global Constraints
 
-- **Onde trabalhar:** repositório `/Users/danilo/work/repos/estudio-hub`, branch
+- **Onde trabalhar:** este repositório (`dnl1/estudio-hub`), branch
   `feat/landing-grade-da-noite`.
   - Nunca commitar na `main`.
   - Push na `main` publica em produção: só com aprovação explícita do Danilo, dizendo "isso faz
@@ -56,7 +56,7 @@ capturas), .NET 8 + Postgres 17 (Docker) + Vite (só para as capturas, fora do s
 - **Nada de prometer pagamento online pela banda:** o app das bandas ainda não cobra na reserva.
 - **Capturas:**
   - Só no ambiente local, banco `landing_demo`, com clones novos da `main` do GitHub.
-  - Proibido tocar em `/Users/danilo/work/repos/studio-scheduler/*` (outra sessão trabalha lá) e no
+  - Proibido tocar nas cópias de trabalho locais dos repositórios do sistema (outra sessão trabalha lá) e no
     banco `postgres` do container.
   - Proibido logar no admin de produção.
 - **Sandbox:** nesta máquina o sandbox impede abrir porta. Comandos que sobem servidor (testes
@@ -140,7 +140,7 @@ capturas), .NET 8 + Postgres 17 (Docker) + Vite (só para as capturas, fora do s
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm install --save-exact --save-dev --no-fund @playwright/test@1.63.0 && npx playwright --version && ls ~/Library/Caches/ms-playwright | grep chromium-1243
+npm install --save-exact --save-dev --no-fund @playwright/test@1.63.0 && npx playwright --version && ls ~/Library/Caches/ms-playwright | grep chromium-1243
 ```
 Expected: `Version 1.63.0` and `chromium-1243`. If `chromium-1243` is missing, run
 `npx playwright install chromium`.
@@ -257,7 +257,7 @@ test("a página inicial carrega com o nome do EstudioHub", async ({ page }) => {
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm pkg set scripts.test:e2e="playwright test" && printf '\ntest-results\nplaywright-report\n' >> .gitignore && tail -4 .gitignore
+npm pkg set scripts.test:e2e="playwright test" && printf '\ntest-results\nplaywright-report\n' >> .gitignore && tail -4 .gitignore
 ```
 
 Modify `eslint.config.mjs`, replacing the `ignores` line with:
@@ -267,14 +267,14 @@ Modify `eslint.config.mjs`, replacing the `ignores` line with:
 
 - [ ] **Step 5: Rodar o teste (sandbox desligado: abre porta)**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npm run test:e2e`
+Run: `npm run test:e2e`
 Expected: `1 passed`.
 
 - [ ] **Step 6: Lint, build e commit**
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && npm run build && git add package.json package-lock.json playwright.config.ts e2e .gitignore eslint.config.mjs && git commit -q -F - <<'EOF'
+npm run lint && npm run build && git add package.json package-lock.json playwright.config.ts e2e .gitignore eslint.config.mjs && git commit -q -F - <<'EOF'
 test: adiciona testes de navegador com Playwright
 
 Os testes fazem o build e servem out/ num servidor estático mínimo, como
@@ -299,8 +299,7 @@ EOF
 - Consumes: `@playwright/test` (Task 1).
 - Produces: os três JPEGs em 2x, que a Task 5 usa. Os nomes dos arquivos são fixos.
 
-Pasta de trabalho desta sessão (temporária, fora do repositório):
-`/private/tmp/claude-501/-Users-danilo-work-repos/141d80ce-5433-4cc0-8e2b-c7163f9eac3d/scratchpad/product-screens`.
+Pasta de trabalho desta sessão: uma pasta temporária, fora do repositório.
 Nos comandos abaixo ela aparece como `$PSW`.
 
 - [ ] **Step 1: Escrever as variáveis do ambiente**
@@ -503,7 +502,7 @@ COMMIT;
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && docker exec studioscheduler-db psql -U postgres -c 'CREATE DATABASE landing_guard_test;' && docker exec -i studioscheduler-db psql -U postgres -d landing_guard_test -v demo_hash=x < scripts/product-screens/demo-seed.sql; echo "exit=$?"; docker exec studioscheduler-db psql -U postgres -c 'DROP DATABASE landing_guard_test;'
+docker exec studioscheduler-db psql -U postgres -c 'CREATE DATABASE landing_guard_test;' && docker exec -i studioscheduler-db psql -U postgres -d landing_guard_test -v demo_hash=x < scripts/product-screens/demo-seed.sql; echo "exit=$?"; docker exec studioscheduler-db psql -U postgres -c 'DROP DATABASE landing_guard_test;'
 ```
 Expected: `ERROR:  demo-seed.sql só roda no banco landing_demo (atual: landing_guard_test)` and
 `exit=3`.
@@ -677,7 +676,7 @@ outra pasta de trabalho, defina `PRODUCT_SCREENS_WORKDIR` antes.
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && export PRODUCT_SCREENS_WORKDIR=/private/tmp/claude-501/-Users-danilo-work-repos/141d80ce-5433-4cc0-8e2b-c7163f9eac3d/scratchpad/product-screens && source scripts/product-screens/vars.sh && mkdir -p "$WORK" && for r in StudioScheduler studio-scheduler-admin studio-scheduler-customer; do [ -d "$WORK/$r" ] || gh repo clone "dnl1/$r" "$WORK/$r" -- --depth 1 --branch main; done && (cd "$WORK/studio-scheduler-admin" && pnpm install --frozen-lockfile) && (cd "$WORK/studio-scheduler-customer" && pnpm install --frozen-lockfile) && git -C "$WORK/StudioScheduler" log --oneline -1
+export PRODUCT_SCREENS_WORKDIR="$PSW" && source scripts/product-screens/vars.sh && mkdir -p "$WORK" && for r in StudioScheduler studio-scheduler-admin studio-scheduler-customer; do [ -d "$WORK/$r" ] || gh repo clone "dnl1/$r" "$WORK/$r" -- --depth 1 --branch main; done && (cd "$WORK/studio-scheduler-admin" && pnpm install --frozen-lockfile) && (cd "$WORK/studio-scheduler-customer" && pnpm install --frozen-lockfile) && git -C "$WORK/StudioScheduler" log --oneline -1
 ```
 Expected: the three clones exist and pnpm finishes. The `StudioScheduler` commit is the current
 `main` on GitHub.
@@ -686,7 +685,7 @@ Expected: the three clones exist and pnpm finishes. The `StudioScheduler` commit
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && export PRODUCT_SCREENS_WORKDIR=/private/tmp/claude-501/-Users-danilo-work-repos/141d80ce-5433-4cc0-8e2b-c7163f9eac3d/scratchpad/product-screens && source scripts/product-screens/vars.sh && docker exec studioscheduler-db psql -U postgres -c 'DROP DATABASE IF EXISTS landing_demo;' -c 'CREATE DATABASE landing_demo;' && (cd "$WORK/StudioScheduler" && CONNECTIONSTRINGS__MIGRATIONSCONNECTION="$DEMO_CONN" ASPNETCORE_ENVIRONMENT=Development dotnet run --project StudioScheduler.Migrations/StudioScheduler.Migrations.csproj 2>&1 | tail -5) && docker exec -i studioscheduler-db psql -U postgres -d landing_demo -v demo_hash="$DEMO_HASH" < scripts/product-screens/demo-seed.sql && source scripts/product-screens/vars.sh && echo "TAB_ID=$TAB_ID ROOM_ID=$ROOM_ID"
+export PRODUCT_SCREENS_WORKDIR="$PSW" && source scripts/product-screens/vars.sh && docker exec studioscheduler-db psql -U postgres -c 'DROP DATABASE IF EXISTS landing_demo;' -c 'CREATE DATABASE landing_demo;' && (cd "$WORK/StudioScheduler" && CONNECTIONSTRINGS__MIGRATIONSCONNECTION="$DEMO_CONN" ASPNETCORE_ENVIRONMENT=Development dotnet run --project StudioScheduler.Migrations/StudioScheduler.Migrations.csproj 2>&1 | tail -5) && docker exec -i studioscheduler-db psql -U postgres -d landing_demo -v demo_hash="$DEMO_HASH" < scripts/product-screens/demo-seed.sql && source scripts/product-screens/vars.sh && echo "TAB_ID=$TAB_ID ROOM_ID=$ROOM_ID"
 ```
 Expected:
 - the migrations finish without error;
@@ -701,13 +700,13 @@ fix the names in `demo-seed.sql` and rerun this step.
 
 Run each as a separate background Bash command:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && export PRODUCT_SCREENS_WORKDIR=/private/tmp/claude-501/-Users-danilo-work-repos/141d80ce-5433-4cc0-8e2b-c7163f9eac3d/scratchpad/product-screens && source scripts/product-screens/vars.sh && cd "$WORK/StudioScheduler" && CONNECTIONSTRINGS__DEFAULTCONNECTION="$DEMO_CONN" ASPNETCORE_ENVIRONMENT=Development ASPNETCORE_URLS=http://localhost:5150 RateLimiting__Enabled=false Workers__EnableHostedWorkers=false exec dotnet run --project StudioScheduler/StudioScheduler.csproj --no-launch-profile
+export PRODUCT_SCREENS_WORKDIR="$PSW" && source scripts/product-screens/vars.sh && cd "$WORK/StudioScheduler" && CONNECTIONSTRINGS__DEFAULTCONNECTION="$DEMO_CONN" ASPNETCORE_ENVIRONMENT=Development ASPNETCORE_URLS=http://localhost:5150 RateLimiting__Enabled=false Workers__EnableHostedWorkers=false exec dotnet run --project StudioScheduler/StudioScheduler.csproj --no-launch-profile
 ```
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && export PRODUCT_SCREENS_WORKDIR=/private/tmp/claude-501/-Users-danilo-work-repos/141d80ce-5433-4cc0-8e2b-c7163f9eac3d/scratchpad/product-screens && source scripts/product-screens/vars.sh && cd "$WORK/studio-scheduler-admin" && VITE_API_BASE_URL=http://localhost:5150 VITE_PUBLIC_POSTHOG_KEY= VITE_PUBLIC_POSTHOG_HOST= exec pnpm exec vite --port 5184 --strictPort
+export PRODUCT_SCREENS_WORKDIR="$PSW" && source scripts/product-screens/vars.sh && cd "$WORK/studio-scheduler-admin" && VITE_API_BASE_URL=http://localhost:5150 VITE_PUBLIC_POSTHOG_KEY= VITE_PUBLIC_POSTHOG_HOST= exec pnpm exec vite --port 5184 --strictPort
 ```
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && export PRODUCT_SCREENS_WORKDIR=/private/tmp/claude-501/-Users-danilo-work-repos/141d80ce-5433-4cc0-8e2b-c7163f9eac3d/scratchpad/product-screens && source scripts/product-screens/vars.sh && cd "$WORK/studio-scheduler-customer" && VITE_API_BASE_URL=http://localhost:5150 VITE_PUBLIC_POSTHOG_KEY= VITE_PUBLIC_POSTHOG_HOST= VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA exec pnpm exec vite --port 5185 --strictPort
+export PRODUCT_SCREENS_WORKDIR="$PSW" && source scripts/product-screens/vars.sh && cd "$WORK/studio-scheduler-customer" && VITE_API_BASE_URL=http://localhost:5150 VITE_PUBLIC_POSTHOG_KEY= VITE_PUBLIC_POSTHOG_HOST= VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA exec pnpm exec vite --port 5185 --strictPort
 ```
 Then wait until all three answer:
 `until curl -sf http://localhost:5150/health >/dev/null && curl -sf http://localhost:5184 >/dev/null && curl -sf http://localhost:5185 >/dev/null; do sleep 2; done`,
@@ -717,7 +716,7 @@ run as a background command with a timeout.
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && export PRODUCT_SCREENS_WORKDIR=/private/tmp/claude-501/-Users-danilo-work-repos/141d80ce-5433-4cc0-8e2b-c7163f9eac3d/scratchpad/product-screens && source scripts/product-screens/vars.sh && node scripts/product-screens/capture.mjs && file public/produto/*.jpg && du -k public/produto/*.jpg
+export PRODUCT_SCREENS_WORKDIR="$PSW" && source scripts/product-screens/vars.sh && node scripts/product-screens/capture.mjs && file public/produto/*.jpg && du -k public/produto/*.jpg
 ```
 Expected:
 - `✔ agenda-bandas.jpg`, `✔ comanda.jpg`, `✔ recebimento.jpg`;
@@ -752,7 +751,7 @@ Expected: `DROP DATABASE`.
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && git add scripts/product-screens public/produto && git commit -q -F - <<'EOF'
+npm run lint && git add scripts/product-screens public/produto && git commit -q -F - <<'EOF'
 feat: capturas reais do produto para a landing page
 
 Admin e app das bandas rodando localmente sobre um banco landing_demo com
@@ -858,7 +857,7 @@ test("Archivo carregada e condensada de verdade nos títulos", async ({ page }) 
 
 - [ ] **Step 2: Rodar e ver falhar**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/header.spec.ts`
+Run: `npx playwright test e2e/header.spec.ts`
 Expected: FAIL. The current header has no "Abrir menu" button at 1280, the CTA text is "Quero uma
 demonstração" and its `href` is `#contato`, and Archivo is not loaded.
 
@@ -1667,14 +1666,14 @@ a {
 
 - [ ] **Step 9: Rodar o teste do topo e ver passar (sandbox desligado)**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/header.spec.ts e2e/smoke.spec.ts`
+Run: `npx playwright test e2e/header.spec.ts e2e/smoke.spec.ts`
 Expected: all passed (11 widths + 3 tests + smoke).
 
 - [ ] **Step 10: Lint, build e commit**
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && npm run build && git add app components e2e && git commit -q -F - <<'EOF'
+npm run lint && npm run build && git add app components e2e && git commit -q -F - <<'EOF'
 feat: tokens, Archivo, topo e rodapé da nova landing
 
 Cores e tipografia da especificação "grade da noite". O topo fica numa
@@ -1768,7 +1767,7 @@ test("sem animação para quem pediu menos movimento", async ({ page }) => {
 
 - [ ] **Step 2: Rodar e ver falhar**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/hero.spec.ts`
+Run: `npx playwright test e2e/hero.spec.ts`
 Expected: FAIL. `#hero-cta` and `.playhead` do not exist.
 
 - [ ] **Step 3: Escrever a linha "agora"**
@@ -2171,7 +2170,7 @@ Append to `app/globals.css`:
 
 - [ ] **Step 7: Rodar e ver passar (sandbox desligado)**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/hero.spec.ts e2e/header.spec.ts`
+Run: `npx playwright test e2e/hero.spec.ts e2e/header.spec.ts`
 Expected: all passed.
 
 - [ ] **Step 8: Olhar a grade em 390 e 1280 px**
@@ -2188,7 +2187,7 @@ Adjust only spacing or font sizes in the CSS of this task, then rerun Step 7.
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && npm run build && git add app components e2e && git commit -q -F - <<'EOF'
+npm run lint && npm run build && git add app components e2e && git commit -q -F - <<'EOF'
 feat: topo da landing com a grade da noite
 
 Título, botão de demonstração de 15 min e a ilustração de uma noite no
@@ -2264,7 +2263,7 @@ test("não promete pagamento online pela banda", async ({ page }) => {
 
 - [ ] **Step 2: Rodar e ver falhar**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/sections.spec.ts`
+Run: `npx playwright test e2e/sections.spec.ts`
 Expected: FAIL. The first two tests fail because `#como-funciona` doesn't exist yet. The third
 already passes, and should stay that way.
 
@@ -2579,7 +2578,7 @@ Append to `app/globals.css`:
 
 - [ ] **Step 7: Rodar e ver passar (sandbox desligado)**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/sections.spec.ts e2e/hero.spec.ts e2e/header.spec.ts`
+Run: `npx playwright test e2e/sections.spec.ts e2e/hero.spec.ts e2e/header.spec.ts`
 Expected: all passed.
 
 - [ ] **Step 8: Olhar em 390 e 1280 px**
@@ -2595,7 +2594,7 @@ Adjust only this task's CSS, then rerun Step 7.
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && npm run build && git add app components e2e next.config.mjs && git commit -q -F - <<'EOF'
+npm run lint && npm run build && git add app components e2e next.config.mjs && git commit -q -F - <<'EOF'
 feat: como funciona com telas reais, também tem e para quem
 
 Três problemas da noite de ensaio, cada um com uma captura real do
@@ -2681,7 +2680,7 @@ test("link do menu leva a seção para baixo do topo fixo", async ({ page }) => 
 
 - [ ] **Step 2: Rodar e ver falhar**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/pricing.spec.ts`
+Run: `npx playwright test e2e/pricing.spec.ts`
 Expected: FAIL. The sections don't exist yet.
 
 - [ ] **Step 3: Colocar as seções na página**
@@ -2926,14 +2925,14 @@ Append to `app/globals.css`:
 
 - [ ] **Step 5: Rodar e ver passar (sandbox desligado)**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test`
+Run: `npx playwright test`
 Expected: all passed.
 
 - [ ] **Step 6: Lint, build e commit**
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && npm run build && git add app e2e && git commit -q -F - <<'EOF'
+npm run lint && npm run build && git add app e2e && git commit -q -F - <<'EOF'
 feat: como começar, preços e dúvidas na landing
 
 Os quatro passos do primeiro contato até a escolha do plano, os preços
@@ -3004,7 +3003,7 @@ test("contato oferece WhatsApp e email", async ({ page }) => {
 
 - [ ] **Step 2: Rodar e ver falhar**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/cta.spec.ts`
+Run: `npx playwright test e2e/cta.spec.ts`
 Expected: FAIL. `.sticky-cta` and `#contato` don't exist, and there are only 3 WhatsApp links
 (header, hero and footer).
 
@@ -3160,14 +3159,14 @@ Append to `app/globals.css`:
 
 - [ ] **Step 6: Rodar e ver passar (sandbox desligado)**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test`
+Run: `npx playwright test`
 Expected: all passed.
 
 - [ ] **Step 7: Lint, build e commit**
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && npm run build && git add app components e2e && git commit -q -F - <<'EOF'
+npm run lint && npm run build && git add app components e2e && git commit -q -F - <<'EOF'
 feat: chamada final e barra fixa de demonstração no celular
 
 A chamada final oferece o WhatsApp e o email. No celular, uma barra com
@@ -3241,7 +3240,7 @@ test("monograma em azul sólido e prévia com fundo Tinta", async ({ page }) => 
 
 - [ ] **Step 2: Rodar e ver falhar**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/brand.spec.ts`
+Run: `npx playwright test e2e/brand.spec.ts`
 Expected: the first test passes. The second fails, because the icon is still a blue→teal gradient
 and the preview background is `#0b1220`.
 
@@ -3249,7 +3248,7 @@ and the preview background is `#0b1220`.
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm uninstall --no-fund @fontsource/sora && npm install --save-exact --save-dev --no-fund @fontsource/archivo-narrow@5.3.0 && ls node_modules/@fontsource/archivo-narrow/files/archivo-narrow-latin-700-normal.woff
+npm uninstall --no-fund @fontsource/sora && npm install --save-exact --save-dev --no-fund @fontsource/archivo-narrow@5.3.0 && ls node_modules/@fontsource/archivo-narrow/files/archivo-narrow-latin-700-normal.woff
 ```
 Expected: the `.woff` path is printed.
 
@@ -3379,7 +3378,7 @@ export async function GET() {
 
 - [ ] **Step 6: Rodar e ver passar; olhar as imagens**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test e2e/brand.spec.ts`
+Run: `npx playwright test e2e/brand.spec.ts`
 Expected: both passed. Then open `out/og-image.png`, `out/icon-64.png` and
 `out/apple-touch-icon.png` with the Read tool and check:
 - accents render;
@@ -3390,7 +3389,7 @@ Expected: both passed. Then open `out/og-image.png`, `out/icon-64.png` and
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && npm run lint && npm run build && git add app components e2e package.json package-lock.json && git commit -q -F - <<'EOF'
+npm run lint && npm run build && git add app components e2e package.json package-lock.json && git commit -q -F - <<'EOF'
 feat: ícone e prévia de link nas cores da nova landing
 
 Monograma "EH" em azul sólido e prévia de link com fundo Tinta, título
@@ -3531,7 +3530,7 @@ test("todo par de cor com texto passa 4,5:1", async ({ page }) => {
 
 - [ ] **Step 2: Rodar a suíte inteira (sandbox desligado)**
 
-Run: `cd /Users/danilo/work/repos/estudio-hub && npx playwright test`
+Run: `npx playwright test`
 Expected: all passed. If the page-height test fails, reduce spacing (`.section`, `.product-rows`,
 `.hero`) before touching content, and report the numbers.
 
@@ -3597,7 +3596,7 @@ As imagens de `public/produto/` são capturas reais, com dados fictícios. Para 
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && rm -rf .next out && npm run lint && npm run build && npx playwright test && npm audit --omit=dev 2>&1 | tail -1 && git status -s
+rm -rf .next out && npm run lint && npm run build && npx playwright test && npm audit --omit=dev 2>&1 | tail -1 && git status -s
 ```
 Expected:
 - lint clean;
@@ -3610,7 +3609,7 @@ Expected:
 
 Run:
 ```bash
-cd /Users/danilo/work/repos/estudio-hub && git add README.md e2e && git commit -q -F - <<'EOF'
+git add README.md e2e && git commit -q -F - <<'EOF'
 test: página inteira, acessibilidade e contraste da landing
 
 Página mais curta que a anterior (30% no celular), nada de rolagem horizontal
@@ -3625,7 +3624,7 @@ EOF
 - [ ] **Step 6: Enviar a branch e conferir a prévia da Cloudflare**
 
 Push only the branch; this does not publish the site. Run
-`cd /Users/danilo/work/repos/estudio-hub && git push -u origin feat/landing-grade-da-noite`.
+`git push -u origin feat/landing-grade-da-noite`.
 Then wait for the "Cloudflare Pages" check on the head commit to complete (background `until`
 loop on `gh api repos/dnl1/estudio-hub/commits/<sha>/check-runs`), and read its "Branch Preview
 URL".
@@ -3633,8 +3632,8 @@ URL".
 - [ ] **Step 7: Prints para o Danilo**
 
 With the Playwright MCP, take full-page screenshots of the preview URL at 390×844 and 1440×900,
-plus a first-screen screenshot at each size. Save them under
-`/Users/danilo/work/repos/.playwright-mcp/estudio-hub-landing/`. Look at every one before
+plus a first-screen screenshot at each size. Save them in a folder
+outside the repository. Look at every one before
 reporting.
 
 Then send the Danilo:

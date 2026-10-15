@@ -168,7 +168,7 @@ num ambiente 100% local e com dados fictícios. Nenhum dado de cliente real entr
 
 - **Código:** clones novos da `main` do GitHub de `StudioScheduler`, `studio-scheduler-admin` e
   `studio-scheduler-customer` numa pasta temporária. É a versão que está em produção. As cópias de
-  trabalho em `/Users/danilo/work/repos/studio-scheduler/` não são tocadas (estão em branches de
+  trabalho locais desses repositórios não são tocadas (estão em branches de
   outra sessão), nem as pastas de build delas.
 - **Banco:** um banco novo `landing_demo` no container `studioscheduler-db` já existente. Não
   mexe no banco `postgres` nem nos outros bancos locais.
