@@ -112,7 +112,8 @@ export const productSection = {
 // Texto do modelo estudiohub_reserva_aprovada, que o sistema envia quando o estúdio confirma.
 export const whatsappConfirmation = {
   caption: "Mensagem que a banda recebe quando o estúdio confirma",
-  text: "Olá, Lia! Seu ensaio no Estúdio Exemplo está confirmado. ✅\n\nSala: Sala 2\nData: 20/10/2026 (terça)\nHorário: 19:00 às 21:00\nEndereço: Rua Exemplo, 100 - São Paulo/SP\n\nNos vemos em breve!",
+  // A reserva do Lia Trio na grade do topo; {data} vira a próxima terça
+  text: "Olá, Lia! Seu ensaio no Estúdio Exemplo está confirmado. ✅\n\nSala: Sala 1\nData: {data}\nHorário: 20:00 às 22:00\nEndereço: Rua Exemplo, 100 - São Paulo/SP\n\nNos vemos em breve!",
   time: "18:42"
 };
 
