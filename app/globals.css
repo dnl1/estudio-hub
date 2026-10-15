@@ -146,6 +146,7 @@ main,
   background: transparent;
   color: #b4c2d9;
   font-size: 0.93rem;
+  white-space: nowrap;
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 
@@ -455,38 +456,24 @@ h1 {
   line-height: 1;
 }
 
-@media (max-width: 1100px) {
-  .header-inner {
-    min-height: 70px;
-    padding: 12px 0;
-  }
-
-  .nav-list {
-    flex-wrap: wrap;
-  }
-
-  .hero-panels,
-  .cards-grid,
-  .benefits-grid,
-  .stage-grid,
-  .trust-grid,
-  .footer-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 720px) {
+/* Abaixo de 1240px a linha completa do topo (1068px) deixa de caber com folga: menu vai para o ☰ */
+@media (max-width: 1239px) {
   .header-inner {
     flex-wrap: wrap;
     row-gap: 12px;
   }
 
+  .logo {
+    margin-right: auto;
+  }
+
   .menu-toggle {
     display: inline-flex;
+    order: 1;
   }
 
   .site-nav {
-    order: 3;
+    order: 2;
     width: 100%;
     display: none;
   }
@@ -508,6 +495,32 @@ h1 {
   .nav-list a {
     justify-content: flex-start;
     width: 100%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .header-inner {
+    min-height: 70px;
+    padding: 12px 0;
+  }
+
+  .hero-panels,
+  .cards-grid,
+  .benefits-grid,
+  .stage-grid,
+  .trust-grid,
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .logo {
+    margin-right: 0;
+  }
+
+  .menu-toggle {
+    order: 0;
   }
 
   .header-cta {

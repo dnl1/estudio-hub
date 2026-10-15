@@ -54,7 +54,7 @@ export function SiteHeader() {
           rel="noreferrer"
           onClick={handleNavClick}
         >
-          Acessar APP ADMIN
+          Entrar
         </a>
       </div>
     </header>

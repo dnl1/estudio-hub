@@ -4,14 +4,12 @@ export type LinkItem = {
 };
 
 export const navLinks: LinkItem[] = [
-  { href: "#home", label: "Home" },
   { href: "#funcionalidades", label: "Funcionalidades" },
   { href: "#planos", label: "Planos" },
   { href: "#para-quem", label: "Para Quem" },
   { href: "#integracoes", label: "Integrações" },
   { href: "#seguranca", label: "Confiança" },
-  { href: "#sobre", label: "Sobre" },
-  { href: "#contato", label: "Contato / Demo" }
+  { href: "#sobre", label: "Sobre" }
 ];
 
 export const modules = [
