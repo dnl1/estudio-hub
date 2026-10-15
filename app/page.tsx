@@ -234,19 +234,19 @@ export default function HomePage() {
           da sua operação.
         </p>
         <div className="cta-row">
-          <a className="btn btn-primary" href="mailto:danilo.o.gomes@proton.me">
+          <a className="btn btn-primary" href="mailto:contato@estudio-hub.com">
             Agendar demonstração
           </a>
           <a
             className="btn btn-secondary wa-btn"
-            href="https://wa.me/5511946010528"
+            href="https://wa.me/5511974571064"
             target="_blank"
             rel="noreferrer"
           >
             <span className="wa-icon" aria-hidden="true">
               W
             </span>
-            WhatsApp: +55 (11) 94601-0528
+            WhatsApp: +55 (11) 97457-1064
           </a>
         </div>
       </section>

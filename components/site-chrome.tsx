@@ -75,20 +75,20 @@ export function SiteFooter() {
         <div>
           <p className="footer-title">Contato</p>
           <p>
-            <a href="mailto:danilo.o.gomes@proton.me">danilo.o.gomes@proton.me</a>
+            <a href="mailto:contato@estudio-hub.com">contato@estudio-hub.com</a>
           </p>
           <p>
             <a
               className="wa-link"
-              href="https://wa.me/5511946010528"
+              href="https://wa.me/5511974571064"
               target="_blank"
               rel="noreferrer"
-              aria-label="Falar no WhatsApp: +55 (11) 94601-0528"
+              aria-label="Falar no WhatsApp: +55 (11) 97457-1064"
             >
               <span className="wa-icon" aria-hidden="true">
                 W
               </span>
-              +55 (11) 94601-0528
+              +55 (11) 97457-1064
             </a>
           </p>
         </div>
