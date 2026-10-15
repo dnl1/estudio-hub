@@ -943,3 +943,86 @@ a {
   padding-bottom: 20px;
   color: var(--tinta-suave);
 }
+
+/* Chamada final */
+.contact {
+  background: var(--tinta);
+  color: #ffffff;
+}
+
+.contact h2 {
+  max-width: 18ch;
+}
+
+.contact__lead {
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem);
+}
+
+.contact__actions {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.contact__actions p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.contact__actions a:not(.btn) {
+  color: #ffffff;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.contact .btn-demo {
+  background: #ffffff;
+  color: var(--tinta);
+}
+
+.contact .btn-demo:hover {
+  background: var(--espuma);
+}
+
+/* Barra fixa do celular */
+.sticky-cta {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--linha);
+  background: rgba(255, 255, 255, 0.96);
+  transform: translateY(110%);
+  transition: transform 0.2s ease;
+}
+
+.sticky-cta.is-visible {
+  transform: none;
+}
+
+.sticky-cta .btn {
+  justify-content: center;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-cta {
+    transition: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .site-footer {
+    padding-bottom: calc(48px + 76px);
+  }
+}
+
+@media (min-width: 900px) {
+  .sticky-cta {
+    display: none;
+  }
+}
