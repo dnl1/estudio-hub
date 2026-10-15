@@ -267,7 +267,9 @@ a {
   background: var(--tinta);
 }
 
-@media (max-width: 399px) {
+/* Logo + botão + ☰ precisam de ~425 px: abaixo de 450 px o botão do topo sai
+   (o botão do primeiro bloco e a barra fixa cobrem) */
+@media (max-width: 449px) {
   .header-cta {
     display: none;
   }

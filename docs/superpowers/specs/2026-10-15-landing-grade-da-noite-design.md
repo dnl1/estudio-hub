@@ -152,8 +152,8 @@ os 12 rótulos em caixa alta.
 - **Barra fixa no rodapé do celular:** aparece depois que o botão do topo sai da tela e some na
   chamada final.
 - **Topo da página:**
-  - Celular: logo, "Agendar demonstração" compacto e ☰. Abaixo de 400 px de largura o botão não
-    cabe ao lado do logo e sai do topo; o botão do primeiro bloco e a barra fixa cobrem esse caso.
+  - Celular: logo, "Agendar demonstração" compacto e ☰. Abaixo de 450 px de largura o botão não
+    cabe ao lado do logo com folga e sai do topo; o botão do primeiro bloco e a barra fixa cobrem esse caso.
   - Computador (a partir de 900 px): links "Como funciona", "Preços", "Dúvidas", mais "Entrar" e
     o botão.
   - Os 183 px de topo no celular viram uma linha só, fixa no alto ao rolar.

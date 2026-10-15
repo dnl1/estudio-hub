@@ -12,13 +12,15 @@ for (const width of WIDTHS) {
         if (!(await element.isVisible())) continue;
         const box = (await element.boundingBox())!;
         expect(box.x, `${selector} começa fora da tela`).toBeGreaterThanOrEqual(0);
-        expect(box.x + box.width, `${selector} passa da borda`).toBeLessThanOrEqual(width + 0.5);
+        // A margem lateral (16 px no celular, 32 px a partir de 900 px) não pode ser comida
+        const gutter = width >= 900 ? 32 : 16;
+        expect(box.x + box.width, `${selector} invade a margem direita`).toBeLessThanOrEqual(width - gutter + 0.5);
       }
     }
     const desktop = width >= 900;
     await expect(page.locator("#main-navigation")).toBeVisible({ visible: desktop });
     await expect(page.locator(".menu-toggle")).toBeVisible({ visible: !desktop });
-    await expect(page.locator(".header-cta")).toBeVisible({ visible: width >= 400 });
+    await expect(page.locator(".header-cta")).toBeVisible({ visible: width >= 450 });
   });
 }
 
