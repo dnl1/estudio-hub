@@ -12,8 +12,10 @@ export function StickyCta() {
     const hero = document.getElementById("hero-cta");
     const contact = document.getElementById("contato");
     if (!hero || !contact) return;
-    const heroObserver = new IntersectionObserver(([entry]) => setHeroVisible(entry.isIntersecting));
-    const contactObserver = new IntersectionObserver(([entry]) => setContactVisible(entry.isIntersecting));
+    // Num gesto rápido chegam várias leituras de uma vez: vale a última, que é o estado atual.
+    const latest = (entries: IntersectionObserverEntry[]) => entries[entries.length - 1].isIntersecting;
+    const heroObserver = new IntersectionObserver((entries) => setHeroVisible(latest(entries)));
+    const contactObserver = new IntersectionObserver((entries) => setContactVisible(latest(entries)));
     heroObserver.observe(hero);
     contactObserver.observe(contact);
     return () => {

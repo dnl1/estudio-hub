@@ -38,3 +38,41 @@ test("contato oferece WhatsApp e email", async ({ page }) => {
     "mailto:contato@estudio-hub.com"
   );
 });
+
+test("barra fixa segue a leitura mais recente do botão do topo", async ({ page }) => {
+  // Num gesto rápido o navegador entrega duas leituras de uma vez; vale a última.
+  await page.addInitScript(() => {
+    const observers: { callback: IntersectionObserverCallback; targets: Element[] }[] = [];
+    Object.assign(window, { __observers: observers });
+    window.IntersectionObserver = class {
+      callback: IntersectionObserverCallback;
+      targets: Element[] = [];
+      constructor(callback: IntersectionObserverCallback) {
+        this.callback = callback;
+        observers.push(this);
+      }
+      observe(target: Element) {
+        this.targets.push(target);
+      }
+      unobserve() {}
+      disconnect() {}
+      takeRecords() {
+        return [];
+      }
+    } as unknown as typeof IntersectionObserver;
+  });
+  await open(page, 390, 844);
+  const deliver = (states: boolean[]) =>
+    page.evaluate((states) => {
+      const hero = document.getElementById("hero-cta")!;
+      const { __observers } = window as unknown as { __observers: { callback: (entries: unknown[]) => void; targets: Element[] }[] };
+      __observers.find((observer) => observer.targets.includes(hero))!.callback(
+        states.map((isIntersecting) => ({ target: hero, isIntersecting }))
+      );
+    }, states);
+  const bar = page.locator(".sticky-cta");
+  await deliver([true, false]); // o botão saiu da tela
+  await expect(bar).toHaveAttribute("aria-hidden", "false");
+  await deliver([false, true]); // saiu e voltou no mesmo gesto
+  await expect(bar).toHaveAttribute("aria-hidden", "true");
+});
