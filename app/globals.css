@@ -422,7 +422,8 @@ a {
   --borda: 12px;
   position: relative;
   overflow: hidden;
-  padding: 36px var(--borda) var(--borda);
+  /* Faixa de cima para a etiqueta "agora", depois a régua das horas */
+  padding: 54px var(--borda) var(--borda);
   border-radius: var(--raio-moldura);
   background: var(--tinta);
   color: #ffffff;
@@ -432,13 +433,15 @@ a {
   .night-grid__board {
     --rotulo: 88px;
     --borda: 20px;
-    padding-top: 40px;
+    padding-top: 62px;
   }
 }
 
+/* A régua e os textos dos blocos ficam por cima da linha "agora", que passa por baixo deles */
 .night-grid__ruler {
   position: absolute;
-  top: 12px;
+  z-index: 1;
+  top: 30px;
   right: var(--borda);
   left: calc(var(--borda) + var(--rotulo));
   height: 16px;
@@ -450,13 +453,15 @@ a {
 
 @media (min-width: 900px) {
   .night-grid__ruler {
-    top: 14px;
+    top: 34px;
     font-size: 0.875rem;
   }
 }
 
 .night-grid__ruler span {
   position: absolute;
+  padding-inline: 3px;
+  background: var(--tinta);
   transform: translateX(-50%);
 }
 
@@ -516,6 +521,20 @@ a {
   line-height: 1.15;
 }
 
+.booking__label,
+.booking__kind,
+.booking__tab {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  max-width: 100%;
+}
+
+.booking__label,
+.booking__kind {
+  background: inherit;
+}
+
 .booking__label {
   overflow: hidden;
   font-size: 0.8125rem;
@@ -546,7 +565,6 @@ a {
 
   .booking__tab {
     display: inline-block;
-    align-self: flex-start;
     margin-top: 3px;
     padding: 0 6px;
     border-radius: 3px;
@@ -577,7 +595,6 @@ a {
 
 .booking--bloqueio .booking__label,
 .booking--bloqueio .booking__kind {
-  align-self: flex-start;
   padding-inline: 4px;
   border-radius: 2px;
   background: var(--tinta);

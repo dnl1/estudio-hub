@@ -15,10 +15,15 @@ function saoPauloHour(now: Date) {
   return hour + minute / 60;
 }
 
-// Posição em % da grade. Fora do horário da grade, a linha para em 21h.
+// Fora do horário da grade, e sem JavaScript, a linha para em 21h.
+const FALLBACK_HOUR = 21;
+
+const percentOf = (hour: number, startHour: number, endHour: number) => ((hour - startHour) / (endHour - startHour)) * 100;
+
+// Posição em % da grade.
 export function playheadTarget(hourNow: number, startHour: number, endHour: number) {
-  const hour = hourNow >= startHour && hourNow < endHour ? hourNow : 21;
-  return ((hour - startHour) / (endHour - startHour)) * 100;
+  const hour = hourNow >= startHour && hourNow < endHour ? hourNow : FALLBACK_HOUR;
+  return percentOf(hour, startHour, endHour);
 }
 
 export function Playhead({ startHour, endHour }: { startHour: number; endHour: number }) {
@@ -36,6 +41,10 @@ export function Playhead({ startHour, endHour }: { startHour: number; endHour: n
       <div className="playhead" style={{ left: `${position}%` }} data-position={position.toFixed(2)}>
         <span className="playhead__label">agora</span>
       </div>
+      {/* Com JavaScript a linha corre do começo da grade até agora; sem ele, fica parada em 21h */}
+      <noscript>
+        <style>{`.playhead { left: ${percentOf(FALLBACK_HOUR, startHour, endHour)}% !important; }`}</style>
+      </noscript>
     </div>
   );
 }

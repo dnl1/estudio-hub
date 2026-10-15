@@ -67,3 +67,66 @@ test("sem animação para quem pediu menos movimento", async ({ page }) => {
   const duration = await page.locator(".playhead").evaluate((element) => getComputedStyle(element).transitionDuration);
   expect(duration).toBe("0s");
 });
+
+test.describe("sem JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("a linha agora fica em 21h", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/");
+    const line = (await page.locator(".playhead").boundingBox())!;
+    const tick = (await page.locator(".night-grid__ruler span", { hasText: "21h" }).boundingBox())!;
+    expect(Math.abs(line.x + line.width / 2 - (tick.x + tick.width / 2))).toBeLessThan(2);
+  });
+});
+
+// Horários de São Paulo: fora da grade (linha em 21h), logo no começo, na virada de hora e no meio dela
+const MOMENTS = [
+  ["2026-10-20T13:00:00Z", "10h"],
+  ["2026-10-20T21:05:00Z", "18h05"],
+  ["2026-10-20T23:00:00Z", "20h"],
+  ["2026-10-20T23:10:00Z", "20h10"],
+  ["2026-10-21T02:40:00Z", "23h40"]
+] as const;
+
+for (const width of [320, 390, 1440]) {
+  test(`etiqueta e linha agora não cobrem os textos da grade em ${width}px`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    let crossings = 0;
+    for (const [instant, moment] of MOMENTS) {
+      await page.clock.setFixedTime(new Date(instant));
+      await open(page, width);
+      await expect(page.locator(".playhead")).not.toHaveAttribute("data-position", "0.00");
+      const result = await page.evaluate(() => {
+        document.querySelector(".night-grid")!.scrollIntoView({ block: "center", behavior: "instant" });
+        // A linha não recebe clique; aqui ela passa a receber, para saber o que fica por cima em cada ponto.
+        const probe = document.createElement("style");
+        probe.textContent = ".playhead-lane, .playhead-lane * { pointer-events: auto !important; }";
+        document.head.append(probe);
+        const line = document.querySelector(".playhead")!.getBoundingClientRect();
+        const x = line.left + line.width / 2;
+        const label = document.querySelector(".playhead__label")!.getBoundingClientRect();
+        const covered: string[] = [];
+        for (const tick of document.querySelectorAll(".night-grid__ruler span")) {
+          const box = tick.getBoundingClientRect();
+          if (label.left < box.right && box.left < label.right && label.top < box.bottom && box.top < label.bottom) {
+            covered.push(`a etiqueta cobre ${tick.textContent}`);
+          }
+        }
+        let crossings = 0;
+        for (const text of document.querySelectorAll(".night-grid__ruler span, .booking__label, .booking__kind, .booking__tab")) {
+          const box = text.getBoundingClientRect();
+          if (box.width === 0 || !(box.left < x && x < box.right)) continue;
+          crossings += 1;
+          const top = document.elementFromPoint(x, box.top + box.height / 2);
+          if (!top || !(top === text || text.contains(top))) covered.push(`a linha passa por cima de ${text.textContent}`);
+        }
+        probe.remove();
+        return { covered, crossings };
+      });
+      expect(result.covered, `às ${moment}`).toEqual([]);
+      crossings += result.crossings;
+    }
+    expect(crossings, "a linha cruzou algum texto em algum horário").toBeGreaterThan(0);
+  });
+}
