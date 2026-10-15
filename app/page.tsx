@@ -1,6 +1,6 @@
 import { NightGrid } from "@/components/night-grid";
 import { ProductShot } from "@/components/product-shot";
-import { audience, extras, hero, productSection } from "@/components/site-content";
+import { audience, extras, faq, hero, pricing, productSection, steps } from "@/components/site-content";
 import { DemoButton } from "@/components/whatsapp";
 import { WhatsAppBubble } from "@/components/whatsapp-bubble";
 
@@ -68,6 +68,75 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+      <section className="section section--espuma" id="como-comecar" aria-labelledby="como-comecar-titulo">
+        <div className="container">
+          <div className="section-head">
+            <h2 id="como-comecar-titulo">{steps.title}</h2>
+          </div>
+          <ol className="steps">
+            {steps.items.map((step) => (
+              <li key={step.title}>
+                <strong>{step.title}</strong>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section" id="precos" aria-labelledby="precos-titulo">
+        <div className="container">
+          <div className="section-head">
+            <h2 id="precos-titulo">{pricing.title}</h2>
+            <p>{pricing.lead}</p>
+          </div>
+          <ul className="plans">
+            {pricing.plans.map((plan) => (
+              <li className="plan" key={plan.name}>
+                <h3>{plan.name}</h3>
+                <p className="plan__rooms">{plan.rooms}</p>
+                {plan.monthly ? (
+                  <>
+                    <p className="plan__price">
+                      {plan.monthly} <span>por mês</span>
+                    </p>
+                    <ul className="plan__cycles">
+                      {plan.cycles.map((cycle) => {
+                        // "R$ 499,90 a cada 6 meses (R$ 83,32 por mês)": o valor por mês vai numa linha própria
+                        const [total, perMonth] = cycle.split(" (");
+                        return (
+                          <li key={cycle}>
+                            {total} <span className="plan__per-month">({perMonth}</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                ) : (
+                  <p className="plan__price">{plan.custom}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="client-line">{pricing.client}</p>
+        </div>
+      </section>
+
+      <section className="section section--espuma" id="duvidas" aria-labelledby="duvidas-titulo">
+        <div className="container">
+          <div className="section-head">
+            <h2 id="duvidas-titulo">{faq.title}</h2>
+          </div>
+          <div className="faq">
+            {faq.items.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
     </main>
