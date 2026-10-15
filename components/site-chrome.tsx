@@ -1,61 +1,52 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { navLinks } from "@/components/site-content";
+import { ADMIN_URL, CONTACT_EMAIL, footer, navLinks } from "@/components/site-content";
+import { DEMO_URL, DemoButton, WHATSAPP_DISPLAY } from "@/components/whatsapp";
 
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleNavClick = () => {
-    setIsMenuOpen(false);
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link className="logo" href="/">
+        <a className="logo" href="#topo" onClick={closeMenu}>
           EstudioHub
-        </Link>
+        </a>
+        <nav
+          id="main-navigation"
+          className={`site-nav${isMenuOpen ? " is-open" : ""}`}
+          aria-label="Navegação principal"
+        >
+          <ul className="nav-list">
+            {navLinks.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} onClick={closeMenu}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={ADMIN_URL} target="_blank" rel="noreferrer" onClick={closeMenu}>
+                Entrar
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <DemoButton className="header-cta" />
         <button
           type="button"
           className="menu-toggle"
           aria-expanded={isMenuOpen}
           aria-controls="main-navigation"
           aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setIsMenuOpen((current) => !current)}
+          onClick={() => setIsMenuOpen((open) => !open)}
         >
           <span />
           <span />
           <span />
         </button>
-        <nav
-          id="main-navigation"
-          className={`site-nav ${isMenuOpen ? "is-open" : ""}`}
-          aria-label="Navegação principal"
-        >
-          <ul className="nav-list">
-            {navLinks.map((item) => (
-              <li key={item.href}>
-                <a href={item.href} onClick={handleNavClick}>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <a className="btn btn-primary header-cta" href="#contato" onClick={handleNavClick}>
-          Quero uma demonstração
-        </a>
-        <a
-          className="btn btn-secondary header-admin-cta"
-          href="https://admin.estudio-hub.com"
-          target="_blank"
-          rel="noreferrer"
-          onClick={handleNavClick}
-        >
-          Entrar
-        </a>
       </div>
     </header>
   );
@@ -64,46 +55,26 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="container footer-grid">
+      <div className="container footer-inner">
         <div>
-          <p className="brand">EstudioHub</p>
-          <p>
-            Plataforma completa para gestão de estúdios: agenda, consumo, estoque, pagamentos e
-            comunicação em um só lugar.
-          </p>
+          <p className="footer-brand">EstudioHub</p>
+          <p>{footer.text}</p>
         </div>
-        <div>
-          <p className="footer-title">Contato</p>
-          <p>
-            <a href="mailto:contato@estudio-hub.com">contato@estudio-hub.com</a>
-          </p>
-          <p>
-            <a
-              className="wa-link"
-              href="https://wa.me/5511974571064"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Falar no WhatsApp: +55 (11) 97457-1064"
-            >
-              <span className="wa-icon" aria-hidden="true">
-                W
-              </span>
-              +55 (11) 97457-1064
+        <ul className="footer-links">
+          <li>
+            <a href={DEMO_URL} target="_blank" rel="noreferrer">
+              WhatsApp {WHATSAPP_DISPLAY}
             </a>
-          </p>
-        </div>
-        <div>
-          <p className="footer-title">Links</p>
-          <p>
-            <a href="#funcionalidades">Funcionalidades</a>
-          </p>
-          <p>
-            <a href="#planos">Planos</a>
-          </p>
-          <p>
-            <a href="#seguranca">Segurança e Governança</a>
-          </p>
-        </div>
+          </li>
+          <li>
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          </li>
+          <li>
+            <a href={ADMIN_URL} target="_blank" rel="noreferrer">
+              Entrar no sistema
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

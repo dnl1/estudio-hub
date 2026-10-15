@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Archivo } from "next/font/google";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import "./globals.css";
 
-const titleFont = Sora({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-title",
-  weight: ["400", "500", "600", "700"]
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap"
 });
 
-const textFont = Manrope({
-  subsets: ["latin"],
-  variable: "--font-text",
-  weight: ["400", "500", "600", "700"]
-});
-
-const siteTitle = "EstudioHub | Ecossistema de Gestão para Estúdios";
+const siteTitle = "EstudioHub | Agenda, comandas e pagamentos para estúdios";
 const siteDescription =
-  "Plataforma completa para agenda, comandas, estoque, relatórios e gestão administrativa de estúdios de ensaio e salas de música.";
+  "Sistema para estúdios de ensaio, gravação e escolas de música: agenda das salas sem conflito, comandas de consumo e pagamentos num lugar só. Teste grátis por 14 dias.";
 
 // As imagens são geradas no build por app/og-image.png, app/icon-64.png e app/apple-touch-icon.png.
 // Os endereços terminam em .png para a hospedagem servir com o tipo certo (image/png).
@@ -25,7 +20,7 @@ const ogImage = {
   url: "/og-image.png",
   width: 1200,
   height: 630,
-  alt: "EstudioHub: gestão completa para estúdios",
+  alt: "EstudioHub: agenda, comandas e pagamentos para estúdios",
   type: "image/png"
 };
 
@@ -60,9 +55,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${titleFont.variable} ${textFont.variable}`}>
-        <div className="ambient-bg" aria-hidden="true" />
+    <html lang="pt-BR" className={archivo.variable}>
+      <body>
         <SiteHeader />
         {children}
         <SiteFooter />
