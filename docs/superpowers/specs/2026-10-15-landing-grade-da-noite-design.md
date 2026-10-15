@@ -105,7 +105,7 @@ ousado da página; o resto fica calmo e direto.
    - perfis e permissões;
    - relatórios e auditoria;
    - integração com Google Agenda;
-   - app de reservas para as bandas (verificar antes de publicar).
+   - app de reservas para as bandas.
 4. **Para quem:** ensaio, gravação, escola de música, podcast/vídeo, uma linha de texto para cada.
 5. **Como começar.** Sequência real, por isso numerada:
    1. Conversa de 15 min pelo WhatsApp.
@@ -115,7 +115,7 @@ ousado da página; o resto fica calmo e direto.
 6. **Preços e dúvidas.**
    - **Planos:** os mesmos nomes do produto (Starter, Growth, Scale, Enterprise), por número de
      salas ativas. O preço mensal fica em destaque, com semestral e anual embaixo.
-   - **Prova social:** uma linha com o cliente real (ver "Conteúdo a confirmar").
+   - **Prova social:** uma linha com o cliente real (ver "Conteúdo confirmado").
    - **Dúvidas** que abrem e fecham: teste grátis, migração, cobrança da assinatura, como escolher
      o plano, segurança dos dados.
 7. **Chamada final e rodapé.** WhatsApp como botão principal; email como opção; "Entrar" para
@@ -169,13 +169,13 @@ com dados fictícios. Nenhum dado de cliente real entra no site.
 - **Se o ambiente local falhar em algum ponto:** paro e aviso antes de buscar outro caminho. Nada de
   logar no admin de produção.
 
-## Conteúdo a confirmar antes de publicar
+## Conteúdo confirmado pelo Danilo (2026-10-15)
 
-- **Warzone:** a linha proposta é "Em uso no Warzone, estúdio de ensaio em Santos (SP), nas
-  unidades Canal 1 e Canal 3." Falta confirmar o tipo de estúdio, se as unidades podem aparecer e
-  se existe uma frase do Fábio para usar. Nenhuma frase será inventada.
-- **Preços:** os valores da tabela acima saem do seed. Falta confirmar que são os de produção hoje.
-- **App de reservas das bandas** (app.estudio-hub.com): confirmar o que ele faz antes de citar.
+- **Warzone:** "Em uso no Warzone, estúdio de ensaio em Santos (SP), nas unidades Canal 1 e
+  Canal 3." Sem depoimento; nenhuma frase será inventada.
+- **Preços:** os valores da tabela acima são os de produção.
+- **App de reservas das bandas** (app.estudio-hub.com): as bandas reservam sozinhas pelo app.
+  Entra em "Também tem".
 
 ## Técnico
 
