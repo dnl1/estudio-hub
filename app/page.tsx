@@ -133,10 +133,10 @@ export default function HomePage() {
               <p>Onboarding por etapas: estrutura, agenda, estoque, usuários e operação diária.</p>
             </article>
             <article className="trust-card">
-              <h3>Automação de cobrança de assinatura</h3>
+              <h3>Como funciona a cobrança da assinatura?</h3>
               <p>
-                O billing segue em evolução contínua. Hoje já existe gestão de assinatura e fatura
-                com controles administrativos.
+                Hoje você já gerencia assinatura e faturas pelo painel, com controles
+                administrativos. A automação da cobrança está em evolução contínua.
               </p>
             </article>
             <article className="trust-card">
@@ -230,8 +230,8 @@ export default function HomePage() {
       <section className="container section section-panel cta-final" id="contato">
         <h2>Transforme a gestão do seu estúdio em uma operação previsível e escalável.</h2>
         <p>
-          Solicite uma demonstração e receba um diagnóstico da sua operação com recomendação por porte
-          da sua operação.
+          Solicite uma demonstração e receba um diagnóstico da sua operação, com a recomendação de
+          plano para o porte do seu estúdio.
         </p>
         <div className="cta-row">
           <a className="btn btn-primary" href="mailto:contato@estudio-hub.com">
