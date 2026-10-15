@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.7",
+    "@fontsource/sora": "5.3.0",
     "@types/node": "22.13.10",
     "@types/react": "19.0.14",
     "@types/react-dom": "19.0.6",
