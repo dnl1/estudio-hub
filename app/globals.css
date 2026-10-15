@@ -355,3 +355,266 @@ a {
     align-items: start;
   }
 }
+
+/* Topo da página e grade da noite */
+.hero {
+  padding-block: 40px 64px;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding-block: 72px 96px;
+  }
+}
+
+.hero h1 {
+  max-width: 22ch;
+}
+
+.hero__lead {
+  max-width: 50ch;
+  margin-top: 20px;
+  color: var(--tinta-suave);
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem);
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 28px;
+}
+
+/* Em 320 px o botão (340 px) não cabe: o texto quebra em duas linhas */
+.hero__cta .btn {
+  max-width: 100%;
+  white-space: normal;
+}
+
+.hero__note {
+  color: var(--tinta-suave);
+  font-size: 1rem;
+}
+
+.night-grid {
+  margin-top: 48px;
+}
+
+@media (min-width: 900px) {
+  .night-grid {
+    margin-top: 64px;
+  }
+}
+
+.night-grid__caption {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-stretch: 75%;
+}
+
+.night-grid__board {
+  --rotulo: 52px;
+  --borda: 12px;
+  position: relative;
+  overflow: hidden;
+  padding: 36px var(--borda) var(--borda);
+  border-radius: var(--raio-moldura);
+  background: var(--tinta);
+  color: #ffffff;
+}
+
+@media (min-width: 900px) {
+  .night-grid__board {
+    --rotulo: 88px;
+    --borda: 20px;
+    padding-top: 40px;
+  }
+}
+
+.night-grid__ruler {
+  position: absolute;
+  top: 12px;
+  right: var(--borda);
+  left: calc(var(--borda) + var(--rotulo));
+  height: 16px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-stretch: 75%;
+}
+
+@media (min-width: 900px) {
+  .night-grid__ruler {
+    top: 14px;
+    font-size: 0.875rem;
+  }
+}
+
+.night-grid__ruler span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.night-grid__ruler span:first-child {
+  transform: none;
+}
+
+.night-grid__ruler span:last-child {
+  transform: translateX(-100%);
+}
+
+.night-grid__room {
+  display: grid;
+  grid-template-columns: var(--rotulo) 1fr;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.night-grid__room-name {
+  align-self: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-stretch: 75%;
+}
+
+@media (min-width: 900px) {
+  .night-grid__room-name {
+    font-size: 1rem;
+  }
+}
+
+.night-grid__track {
+  position: relative;
+  height: 52px;
+  list-style: none;
+  padding: 0;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: calc(100% / 6) 100%;
+}
+
+@media (min-width: 900px) {
+  .night-grid__track {
+    height: 72px;
+  }
+}
+
+.booking {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8px;
+  overflow: hidden;
+  border-radius: var(--raio-bloco);
+  line-height: 1.15;
+}
+
+.booking__label {
+  overflow: hidden;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-stretch: 75%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.booking__kind {
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-stretch: 75%;
+}
+
+.booking__tab {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .booking__label {
+    font-size: 1rem;
+  }
+
+  .booking__kind {
+    font-size: 0.8125rem;
+  }
+
+  .booking__tab {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 3px;
+    padding: 0 6px;
+    border-radius: 3px;
+    background: #ffffff;
+    color: var(--tinta);
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-stretch: 75%;
+  }
+}
+
+.booking--mensal {
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.booking--avulsa {
+  background: var(--ambar);
+  color: var(--tinta);
+}
+
+/* Vermelho não passa 4,5:1 com texto: hachura e borda vermelhas, texto branco sobre a Tinta */
+.booking--bloqueio {
+  border: 1px solid var(--vermelho);
+  background: repeating-linear-gradient(-45deg, rgba(229, 72, 77, 0.45) 0 6px, transparent 6px 12px);
+  color: #ffffff;
+}
+
+.booking--bloqueio .booking__label,
+.booking--bloqueio .booking__kind {
+  align-self: flex-start;
+  padding-inline: 4px;
+  border-radius: 2px;
+  background: var(--tinta);
+}
+
+.playhead-lane {
+  position: absolute;
+  top: 8px;
+  right: var(--borda);
+  bottom: var(--borda);
+  left: calc(var(--borda) + var(--rotulo));
+  pointer-events: none;
+}
+
+.playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: #ffffff;
+  transition: left 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playhead__label {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  padding: 0 6px;
+  border-radius: 3px;
+  background: #ffffff;
+  color: var(--tinta);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-stretch: 75%;
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playhead {
+    transition: none;
+  }
+}
