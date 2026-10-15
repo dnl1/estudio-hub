@@ -5,11 +5,17 @@ import { StickyCta } from "@/components/sticky-cta";
 import { DemoButton } from "@/components/whatsapp";
 import { WhatsAppBubble } from "@/components/whatsapp-bubble";
 
+// Âncoras do site antigo, que podem estar em links já compartilhados, levam à seção equivalente.
+function OldAnchor({ id }: { id: string }) {
+  return <span id={id} aria-hidden="true" />;
+}
+
 export default function HomePage() {
   return (
     <>
       <main id="conteudo">
         <section className="hero" id="topo" aria-labelledby="topo-titulo">
+          <OldAnchor id="home" />
           <div className="container">
             <h1 id="topo-titulo">{hero.title}</h1>
             <p className="hero__lead">{hero.lead}</p>
@@ -22,6 +28,7 @@ export default function HomePage() {
         </section>
 
         <section className="section" id="como-funciona" aria-labelledby="como-funciona-titulo">
+          <OldAnchor id="funcionalidades" />
           <div className="container">
             <div className="section-head">
               <h2 id="como-funciona-titulo">{productSection.title}</h2>
@@ -45,6 +52,7 @@ export default function HomePage() {
         </section>
 
         <section className="section section--espuma" id="tambem-tem" aria-labelledby="tambem-tem-titulo">
+          <OldAnchor id="integracoes" />
           <div className="container">
             <div className="section-head">
               <h2 id="tambem-tem-titulo">{extras.title}</h2>
@@ -58,6 +66,7 @@ export default function HomePage() {
         </section>
 
         <section className="section" id="para-quem" aria-labelledby="para-quem-titulo">
+          <OldAnchor id="sobre" />
           <div className="container">
             <div className="section-head">
               <h2 id="para-quem-titulo">{audience.title}</h2>
@@ -89,6 +98,7 @@ export default function HomePage() {
         </section>
 
         <section className="section" id="precos" aria-labelledby="precos-titulo">
+          <OldAnchor id="planos" />
           <div className="container">
             <div className="section-head">
               <h2 id="precos-titulo">{pricing.title}</h2>
@@ -127,6 +137,7 @@ export default function HomePage() {
         </section>
 
         <section className="section section--espuma" id="duvidas" aria-labelledby="duvidas-titulo">
+          <OldAnchor id="seguranca" />
           <div className="container">
             <div className="section-head">
               <h2 id="duvidas-titulo">{faq.title}</h2>

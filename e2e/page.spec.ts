@@ -47,3 +47,25 @@ test.describe("sem JavaScript", () => {
     await expect(page.locator("#contato")).toContainText("Agendar demonstração");
   });
 });
+
+// Âncoras do site antigo, que podem estar em links já compartilhados
+const OLD_ANCHORS = [
+  ["home", "topo"],
+  ["funcionalidades", "como-funciona"],
+  ["integracoes", "tambem-tem"],
+  ["sobre", "para-quem"],
+  ["planos", "precos"],
+  ["seguranca", "duvidas"]
+] as const;
+
+for (const [old, section] of OLD_ANCHORS) {
+  test(`endereço antigo #${old} leva à seção #${section}`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`/#${old}`);
+    await expect(page.locator(`#${old}`)).toHaveCount(1);
+    const title = page.locator(`#${section}-titulo`);
+    await expect(title).toBeInViewport();
+    const header = (await page.locator(".site-header").boundingBox())!;
+    await expect.poll(async () => (await title.boundingBox())!.y).toBeGreaterThanOrEqual(header.y + header.height);
+  });
+}
