@@ -25,7 +25,8 @@ export function NightGrid() {
             <span className="night-grid__room-name" aria-hidden="true">
               {room}
             </span>
-            <ul className="night-grid__track" aria-label={room}>
+            {/* role explícito: o WebKit tira o papel de lista de <ul> sem marcador, e o VoiceOver perderia o nome da sala */}
+            <ul className="night-grid__track" role="list" aria-label={room}>
               {bookings
                 .filter((booking) => booking.room === room)
                 .map((booking) => (

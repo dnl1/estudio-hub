@@ -29,6 +29,16 @@ test("a grade lista as reservas de cada sala para leitor de tela", async ({ page
   await expect(grid.getByRole("listitem").filter({ hasText: "Manutenção" })).toContainText("bloqueio");
 });
 
+test("cada sala da grade é uma lista explícita, para o VoiceOver anunciar o nome da sala", async ({ page }) => {
+  // O WebKit tira o papel de lista de <ul> com list-style:none, e aí o aria-label da sala some.
+  await open(page, 390, 844);
+  const tracks = page.locator(".night-grid__track");
+  await expect(tracks).toHaveCount(3);
+  for (const track of await tracks.all()) {
+    await expect(track).toHaveAttribute("role", "list");
+  }
+});
+
 test("às 20h30 de São Paulo a linha agora fica em 20h30 da grade", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-10-20T23:30:00Z"));
   await open(page, 1280);
