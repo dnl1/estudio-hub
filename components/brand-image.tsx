@@ -1,16 +1,20 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-// Ícones e prévia de link são gerados no build com a mesma Sora do site.
-// O ImageResponse não lê woff2 (formato do next/font), por isso a fonte vem do @fontsource.
-export async function loadSoraBold() {
-  return readFile(
-    join(process.cwd(), "node_modules/@fontsource/sora/files/sora-latin-700-normal.woff")
-  );
-}
+export const brandColors = {
+  papel: "#ffffff",
+  tinta: "#1f2125",
+  azul: "#3366ff",
+  ambar: "#f5b700"
+};
 
-export async function soraFonts() {
-  return [{ name: "Sora", data: await loadSoraBold(), weight: 700 as const, style: "normal" as const }];
+// Ícones e prévia de link usam a Archivo Narrow, irmã condensada da Archivo do site.
+// O ImageResponse não lê woff2 nem fonte variável, por isso a fonte vem do @fontsource (woff).
+export async function brandFonts() {
+  const data = await readFile(
+    join(process.cwd(), "node_modules/@fontsource/archivo-narrow/files/archivo-narrow-latin-700-normal.woff")
+  );
+  return [{ name: "Archivo Narrow", data, weight: 700 as const, style: "normal" as const }];
 }
 
 export function Monogram({ size, rounded = true }: { size: number; rounded?: boolean }) {
@@ -23,12 +27,12 @@ export function Monogram({ size, rounded = true }: { size: number; rounded?: boo
         alignItems: "center",
         justifyContent: "center",
         borderRadius: rounded ? size * 0.22 : 0,
-        backgroundImage: "linear-gradient(135deg, #1d9bf0, #2dd4bf)",
-        color: "#ffffff",
-        fontFamily: "Sora",
+        backgroundColor: brandColors.azul,
+        color: brandColors.papel,
+        fontFamily: "Archivo Narrow",
         fontWeight: 700,
-        fontSize: size * 0.44,
-        letterSpacing: "-0.04em"
+        fontSize: size * 0.5,
+        letterSpacing: "-0.02em"
       }}
     >
       EH

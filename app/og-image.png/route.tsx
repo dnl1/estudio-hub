@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { Monogram, soraFonts } from "@/components/brand-image";
+import { Monogram, brandColors, brandFonts } from "@/components/brand-image";
 
 export const dynamic = "force-static";
 
@@ -15,35 +15,24 @@ export async function GET() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          backgroundColor: "#0b1220",
-          backgroundImage:
-            "radial-gradient(circle at 15% 20%, rgba(29, 155, 240, 0.22), transparent 45%), radial-gradient(circle at 85% 15%, rgba(45, 212, 191, 0.18), transparent 42%)",
-          fontFamily: "Sora",
-          color: "#e7edf8"
+          backgroundColor: brandColors.tinta,
+          color: brandColors.papel,
+          fontFamily: "Archivo Narrow"
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
           <Monogram size={84} />
-          <div style={{ fontSize: 44, fontWeight: 700, color: "#f3f7ff" }}>EstudioHub</div>
+          <div style={{ fontSize: 48, fontWeight: 700 }}>EstudioHub</div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            maxWidth: 1000,
-            fontSize: 64,
-            fontWeight: 700,
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em"
-          }}
-        >
-          Seu estúdio no controle: agenda, comandas, estoque e cobranças em um só lugar.
+        <div style={{ display: "flex", maxWidth: 1000, fontSize: 72, fontWeight: 700, lineHeight: 1.04 }}>
+          A agenda das salas, as comandas e os pagamentos do seu estúdio num lugar só.
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "#a2b0c7" }}>
-          <span>Gestão completa para estúdios</span>
-          <span>estudio-hub.com</span>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 30 }}>
+          <span style={{ color: brandColors.ambar }}>14 dias grátis</span>
+          <span style={{ color: "rgba(255, 255, 255, 0.72)" }}>estudio-hub.com</span>
         </div>
       </div>
     ),
-    { width: 1200, height: 630, fonts: await soraFonts() }
+    { width: 1200, height: 630, fonts: await brandFonts() }
   );
 }

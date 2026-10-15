@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { Monogram, soraFonts } from "@/components/brand-image";
+import { Monogram, brandFonts } from "@/components/brand-image";
 
 export const dynamic = "force-static";
 
@@ -8,6 +8,6 @@ export async function GET() {
   return new ImageResponse(<Monogram size={180} rounded={false} />, {
     width: 180,
     height: 180,
-    fonts: await soraFonts()
+    fonts: await brandFonts()
   });
 }
