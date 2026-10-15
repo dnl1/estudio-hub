@@ -14,8 +14,11 @@ Transformar estudio-hub.com de folheto institucional em landing page que convert
   pagamentos num lugar só; fim do conflito de horário e do consumo que não fecha no fim do mês;
   teste grátis assistido; demonstração de 15 min.
 - **Sucesso:** o botão "Agendar demonstração" aparece na primeira tela e fica sempre ao alcance no
-  celular; a página mostra o produto de verdade; tem preço e um cliente real; fica com menos da
-  metade da rolagem de hoje (hoje: 7,8 telas no computador, 13,8 no celular).
+  celular; a página mostra o produto de verdade; tem preço e um cliente real; fica mais curta que
+  hoje no computador (hoje 7.042 px em 1440×900) e pelo menos 30% mais curta no celular, de onde
+  vem a maior parte das visitas (hoje 11.683 px em 390×844). A meta inicial de "metade" não cabe
+  com as 7 seções e as 3 telas reais aprovadas; a estimativa da nova página é ~6.000 px no
+  computador e ~6.900 px no celular.
 
 ## Diagnóstico da versão atual (resumo)
 
@@ -92,20 +95,25 @@ ousado da página; o resto fica calmo e direto.
    - Abaixo, a grade de uma terça das 18h às 00h: 3 salas, com reservas mensais, avulsas, um
      bloqueio de manutenção e uma comanda presa a uma reserva.
    - Nomes de bandas fictícios.
-2. **Três problemas, três telas.** Uma linha por problema, com o texto de um lado e a tela real do
-   admin do outro (empilhados no celular):
-   - **Agenda:** conflito de horário impossível; mensalistas com exceção pontual.
-   - **Comanda:** consumo lançado na reserva, dividido entre os integrantes, fechado com
-     validação.
-   - **Pagamento:** PIX por Mercado Pago ou PagBank; confirmação e lembrete pelo WhatsApp.
+2. **Três problemas, três telas.** Uma linha por problema, com o texto de um lado e uma tela real
+   do produto do outro (empilhados no celular):
+   - **Agenda:** as bandas escolhem a sala e os horários livres da semana no app e pedem a
+     reserva; o estúdio confirma. Mensalistas e bloqueios já aparecem ocupados. Tela: a grade
+     semanal do app das bandas.
+   - **Comanda:** consumo lançado na comanda da reserva, junto com o ensaio, e dividido entre os
+     integrantes, com o saldo que falta receber. Tela: a comanda no admin.
+   - **Recebimento e avisos:** recebimento no balcão por Pix, cartão ou dinheiro, item por item,
+     com troco; confirmação da reserva e lembrete na véspera pelo WhatsApp. Telas: a janela
+     "Receber itens selecionados" do admin, mais o texto real do modelo de confirmação do
+     WhatsApp (`estudiohub_reserva_aprovada`) num balão desenhado em HTML.
+   - Nada de prometer pagamento online pela banda: o app ainda não cobra na reserva.
 3. **Também tem:** lista em duas colunas, sem caixas:
-   - estoque por unidade;
-   - entrada de produtos importando o XML da nota fiscal;
-   - várias unidades;
-   - perfis e permissões;
-   - relatórios e auditoria;
-   - integração com Google Agenda;
-   - app de reservas para as bandas.
+   - painel do dia (reservas de hoje, comandas abertas, pendências, receita);
+   - estoque por unidade, com entrada de produtos pelo XML da nota fiscal;
+   - mensalistas semanais ou quinzenais, com remarcação e cancelamento de um dia só;
+   - várias unidades na mesma conta;
+   - perfis de gestor e equipe, com histórico das ações importantes;
+   - integração com Google Agenda e relatórios para exportar.
 4. **Para quem:** ensaio, gravação, escola de música, podcast/vídeo, uma linha de texto para cada.
 5. **Como começar.** Sequência real, por isso numerada:
    1. Conversa de 15 min pelo WhatsApp.
@@ -144,28 +152,43 @@ os 12 rótulos em caixa alta.
 - **Barra fixa no rodapé do celular:** aparece depois que o botão do topo sai da tela e some na
   chamada final.
 - **Topo da página:**
-  - Celular: logo, "Agendar demonstração" compacto e ☰.
-  - Computador: links "Como funciona", "Preços", "Dúvidas", mais "Entrar" e o botão.
-  - Os 183 px de topo no celular viram uma linha só.
+  - Celular: logo, "Agendar demonstração" compacto e ☰. Abaixo de 400 px de largura o botão não
+    cabe ao lado do logo e sai do topo; o botão do primeiro bloco e a barra fixa cobrem esse caso.
+  - Computador (a partir de 900 px): links "Como funciona", "Preços", "Dúvidas", mais "Entrar" e
+    o botão.
+  - Os 183 px de topo no celular viram uma linha só, fixa no alto ao rolar.
+- **A grade da noite é ilustração:** ela mostra uma noite do estúdio (várias salas, bandas e
+  tipos de reserva) e não é apresentada como uma tela do sistema. A grade real do produto é a do
+  app das bandas, que aparece como captura na seção 2.
 
 ## Telas do produto (capturas)
 
-As telas da seção 2 são capturas reais do admin, feitas com Playwright num ambiente 100% local e
-com dados fictícios. Nenhum dado de cliente real entra no site.
+As telas da seção 2 são capturas reais do produto (admin e app das bandas), feitas com Playwright
+num ambiente 100% local e com dados fictícios. Nenhum dado de cliente real entra no site.
 
+- **Código:** clones novos da `main` do GitHub de `StudioScheduler`, `studio-scheduler-admin` e
+  `studio-scheduler-customer` numa pasta temporária. É a versão que está em produção. As cópias de
+  trabalho em `/Users/danilo/work/repos/studio-scheduler/` não são tocadas (estão em branches de
+  outra sessão), nem as pastas de build delas.
 - **Banco:** um banco novo `landing_demo` no container `studioscheduler-db` já existente. Não
-  mexe no banco `postgres` nem nos outros bancos locais, que têm trabalho de outras sessões em
-  andamento.
-- **Schema:** criado rodando `StudioScheduler.Migrations` contra `landing_demo`.
-- **Dados fictícios:** um estúdio "Estúdio Demonstração" com 3 salas, bandas fictícias, reservas
-  avulsas e mensais com uma exceção, uma comanda com itens e divisão, e produtos no estoque.
-- **API e admin:** a API local na porta 5150 e o admin (vite) na porta 5183, apontando para essa
-  API. Mesmas travas dos testes fullstack: só host local e `database-target` igual a `LOCAL`.
-- **Repositórios do sistema:** `StudioScheduler` e `studio-scheduler-admin` são usados só para
-  leitura e execução. Nenhum arquivo deles é alterado, e as branches atuais (que são de outra
-  sessão) ficam como estão. Se for preciso, o código roda a partir de um `git worktree` separado.
-- **Arquivos gerados:** as capturas vão para `public/produto/` no site, em PNG ou WebP,
-  dimensionadas para 2x, com `alt` descritivo.
+  mexe no banco `postgres` nem nos outros bancos locais.
+- **Schema:** criado rodando `StudioScheduler.Migrations` contra `landing_demo`. O seed padrão dele
+  traz a organização real (Warzone); o script de dados fictícios renomeia tudo (organização
+  "Estúdio Exemplo", unidades "Unidade Centro" e "Unidade Norte", salas "Sala 1" a "Sala 3") e
+  desativa o usuário real, sem escrever nenhum dado pessoal no repositório do site.
+- **Dados fictícios** (`scripts/product-screens/demo-seed.sql`): licença gratuita ativa, uma
+  gestora fictícia, salas com disponibilidade e preço, reservas avulsas e pendentes na próxima
+  semana da Sala 2, dois mensalistas, um bloqueio, e a comanda de hoje da Sala 1 com ensaio,
+  produtos e divisão entre três pessoas. O script se recusa a rodar fora do banco `landing_demo`.
+- **Execução:** API local na porta 5150, admin na 5184 e app das bandas na 5185 (a 5183 é usada
+  pelos testes do app das bandas). Travas antes de qualquer captura: API em host local,
+  `database-target` igual a `LOCAL` e organização com o nome fictício (o `database-target` não
+  olha o nome do banco). Só requisições para `localhost` passam; o resto é bloqueado.
+- **Capturas** (`scripts/product-screens/capture.mjs`), em 2x e em JPEG (até 350 KB cada, para não pesar no celular):
+  - `public/produto/agenda-bandas.jpg`: a grade semanal da Sala 2 no app das bandas.
+  - `public/produto/comanda.jpg`: a comanda da Sala 1 no admin.
+  - `public/produto/recebimento.jpg`: a janela "Receber itens selecionados", sem confirmar o
+    recebimento.
 - **Se o ambiente local falhar em algum ponto:** paro e aviso antes de buscar outro caminho. Nada de
   logar no admin de produção.
 
@@ -175,7 +198,7 @@ com dados fictícios. Nenhum dado de cliente real entra no site.
   Canal 3." Sem depoimento; nenhuma frase será inventada.
 - **Preços:** os valores da tabela acima são os de produção.
 - **App de reservas das bandas** (app.estudio-hub.com): as bandas reservam sozinhas pelo app.
-  Entra em "Também tem".
+  Vira a primeira linha da seção 2, com a captura da grade semanal.
 
 ## Técnico
 
@@ -183,13 +206,19 @@ com dados fictícios. Nenhum dado de cliente real entra no site.
   tokens acima.
 - O conteúdo continua em `components/site-content.ts`.
 - **Componentes novos:**
-  - `components/night-grid.tsx`: grade do topo, em HTML/CSS. Só a linha "agora" usa JS (cliente),
-    calculando a hora de São Paulo.
+  - `components/night-grid.tsx`: grade do topo, em HTML/CSS. Só a linha "agora"
+    (`components/playhead.tsx`) usa JS (cliente), calculando a hora de São Paulo.
   - `components/sticky-cta.tsx`: barra fixa do celular, com `IntersectionObserver`.
-  - `components/whatsapp-link.tsx`: link e ícone.
+  - `components/whatsapp.tsx`: link da demonstração, botão e ícone.
+  - `components/product-shot.tsx`: moldura das capturas, com o tamanho lido do próprio arquivo JPEG.
+  - `components/whatsapp-bubble.tsx`: balão com o texto real do modelo de confirmação.
 - **Imagens:** o monograma e a prévia de link (`components/brand-image.tsx`) passam para o Azul
-  sólido.
-- **Sem dependências novas no site:** a fonte vem do `next/font/google`.
+  sólido e a Archivo Narrow (`@fontsource/archivo-narrow`, no lugar do `@fontsource/sora`).
+- **Sem dependências novas em produção:** a fonte do site vem do `next/font/google`. Em
+  desenvolvimento entram `@playwright/test` 1.63.0 (testes; usa o Chromium já baixado nesta
+  máquina) e `@fontsource/archivo-narrow` (imagens geradas no build).
+- **Testes:** `npm run test:e2e` faz o build, serve `out/` num servidor estático mínimo
+  (`e2e/serve-out.mjs`) e roda os testes de `e2e/`.
 
 ## Verificação
 
@@ -205,7 +234,7 @@ com dados fictícios. Nenhum dado de cliente real entra no site.
   - contraste de todos os pares de cor dos tokens ≥ 4,5:1 para texto (calculado);
   - `prefers-reduced-motion` respeitado;
   - a grade legível por leitor de tela, como uma lista de reservas.
-- **Altura da página:** menos da metade da atual nas duas larguras de referência (1440 e 390).
+- **Altura da página:** menor que 7.042 px em 1440×900 e menor que 8.178 px (−30%) em 390×844.
 - **Em todo commit:** `npm run lint` e `npm run build` passando.
 - **Entrega:** prints no computador e no celular, e o link de prévia da Cloudflare da branch.
   Merge na `main` só com aprovação explícita, porque publica em produção.
