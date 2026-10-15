@@ -619,3 +619,162 @@ a {
     transition: none;
   }
 }
+
+/* Como funciona */
+.product-rows {
+  display: grid;
+  gap: 64px;
+}
+
+.product-row {
+  display: grid;
+  align-items: center;
+  gap: 24px;
+}
+
+.product-row__text {
+  display: grid;
+  gap: 12px;
+}
+
+.product-row__text p {
+  color: var(--tinta-suave);
+}
+
+.product-row__media {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .product-rows {
+    gap: 96px;
+  }
+
+  .product-row {
+    grid-template-columns: 5fr 7fr;
+    gap: 56px;
+  }
+
+  /* Linhas pares: imagem à esquerda, na coluna larga */
+  .product-row:nth-child(even) {
+    grid-template-columns: 7fr 5fr;
+  }
+
+  .product-row:nth-child(even) .product-row__text {
+    order: 2;
+  }
+}
+
+.shot {
+  padding: 10px;
+  border-radius: var(--raio-moldura);
+  background: var(--espuma);
+  box-shadow: 0 1px 2px rgba(31, 33, 37, 0.08), 0 16px 40px rgba(31, 33, 37, 0.12);
+}
+
+.shot__viewport {
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.shot--recorte .shot__viewport {
+  aspect-ratio: 16 / 10;
+}
+
+.shot--recorte img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+/* Janela vertical (recebimento): mais estreita, para não esticar a página */
+.shot--estreita {
+  justify-self: start;
+  width: 100%;
+  max-width: 420px;
+}
+
+.wa-bubble {
+  justify-self: start;
+  max-width: 360px;
+}
+
+.wa-bubble__caption {
+  margin-bottom: 8px;
+  color: var(--tinta-suave);
+  font-size: 0.875rem;
+}
+
+.wa-bubble__text {
+  padding: 10px 12px 8px;
+  border: 1px solid var(--linha);
+  border-radius: 10px 10px 10px 2px;
+  background: var(--papel);
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: pre-line;
+}
+
+.wa-bubble__time {
+  display: block;
+  margin-top: 4px;
+  color: var(--tinta-suave);
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+/* Também tem */
+.feature-list {
+  display: grid;
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  padding-block: 16px;
+  border-top: 1px solid var(--linha);
+}
+
+@media (min-width: 900px) {
+  .feature-list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 48px;
+  }
+}
+
+/* Para quem */
+.audience-list {
+  display: grid;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+}
+
+.audience-list li {
+  display: grid;
+  gap: 4px;
+}
+
+.audience-list strong {
+  font-size: 1.3125rem;
+  font-weight: 700;
+  font-stretch: 75%;
+}
+
+.audience-list span {
+  color: var(--tinta-suave);
+}
+
+@media (min-width: 900px) {
+  .audience-list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+}
