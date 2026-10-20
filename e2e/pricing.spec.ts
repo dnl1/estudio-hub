@@ -79,3 +79,16 @@ test("link do menu leva a seção para baixo do topo fixo", async ({ page }) => 
   const titleTop = (await page.locator("#precos h2").boundingBox())!.y;
   expect(titleTop).toBeGreaterThanOrEqual(header.y + header.height);
 });
+
+for (const width of [1024, 1280]) {
+  test(`valores do plano não quebram no meio em ${width}px`, async ({ page }) => {
+    await open(page, width);
+    const plans = page.locator("#precos .plan");
+    for (let index = 0; index < 3; index++) {
+      const prices = plans.nth(index).locator(".plan__original .nowrap");
+      await expect(prices).toHaveCount(3);
+      const lines = await prices.evaluateAll((items) => items.map((item) => item.getClientRects().length));
+      expect(lines).toEqual([1, 1, 1]);
+    }
+  });
+}

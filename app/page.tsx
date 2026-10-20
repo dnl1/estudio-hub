@@ -10,6 +10,19 @@ function OldAnchor({ id }: { id: string }) {
   return <span id={id} aria-hidden="true" />;
 }
 
+// Cada valor em reais fica inteiro: a linha pode quebrar entre as palavras, nunca dentro de "(R$ 899,90)"
+function WholePrices({ text }: { text: string }) {
+  return text.split(/(\(?R\$ [\d.,]+\)?)/).map((part, index) =>
+    index % 2 ? (
+      <span className="nowrap" key={index}>
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
+
 export default function HomePage() {
   return (
     <>
@@ -117,8 +130,12 @@ export default function HomePage() {
                       </p>
                       <p className="plan__window">{promo.window}</p>
                       <p className="plan__original">
-                        <span>Depois, {plan.monthly} por mês</span>
-                        <span>Ou plano anual em {plan.annualInstallments}</span>
+                        <span>
+                          <WholePrices text={`Depois, ${plan.monthly} por mês`} />
+                        </span>
+                        <span>
+                          <WholePrices text={`Ou plano anual em ${plan.annualInstallments}`} />
+                        </span>
                       </p>
                     </>
                   ) : (

@@ -893,8 +893,12 @@ a {
   line-height: 1.45;
 }
 
-.plan__original span {
+.plan__original > span {
   display: block;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
 
 .plan__price {
