@@ -131,10 +131,21 @@ export default function HomePage() {
                       <p className="plan__window">{promo.window}</p>
                       <p className="plan__original">
                         <span>
-                          <WholePrices text={`Depois, ${plan.monthly} por mês`} />
+                          <WholePrices text={promo.afterPrice(plan.monthly ?? "")} />
                         </span>
                         <span>
-                          <WholePrices text={`Ou plano anual em ${plan.annualInstallments}`} />
+                          <WholePrices text={promo.annualLine(plan.annualInstallments ?? "")} />
+                        </span>
+                      </p>
+                    </>
+                  ) : plan.monthly ? (
+                    <>
+                      <p className="plan__price">
+                        {plan.monthly} <span>por mês</span>
+                      </p>
+                      <p className="plan__original">
+                        <span>
+                          <WholePrices text={promo.annualLine(plan.annualInstallments ?? "")} />
                         </span>
                       </p>
                     </>

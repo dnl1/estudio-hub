@@ -909,6 +909,7 @@ a {
 }
 
 .plan__price span {
+  white-space: nowrap;
   color: var(--tinta-suave);
   font-size: 1rem;
   font-weight: 500;

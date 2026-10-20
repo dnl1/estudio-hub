@@ -12,10 +12,23 @@ export const navLinks: LinkItem[] = [
   { href: "#duvidas", label: "Dúvidas" }
 ];
 
+// Volta da promoção (a partir de 01/04/2027). O site não desliga sozinho: alguém republica a versão sem promoção.
+// 1. Em `plans`, troque `promoMonthly` por null nos planos pagos (Starter, Growth, Scale). `app/page.tsx` então
+//    mostra `monthly` como preço grande, sem selo e sem janela.
+// 2. Revise os textos que citam a promoção: `promo.trialLabel` (nota do topo, passo "Como começar", descrição em
+//    `app/layout.tsx` e imagem em `app/og-image.png/route.tsx`), `pricing.lead` e o FAQ "Como funciona a promoção?"
+//    (remova a pergunta). Se o teste grátis continuar, mantenha `promo.trialDays`.
+// 3. Atualize os testes e2e: `e2e/pricing.spec.ts` (selo, janela, "Depois, ..." e FAQ esperam a promoção; com
+//    `promoMonthly` null o preço grande passa a ser `monthly` e não há selo nem janela) e `e2e/hero.spec.ts`
+//    (nota do topo e descrição da página).
+// 4. Rode `npm run test:e2e` e `npm run lint`, confira `#precos` em 390, 900 e 1280 px e republique o site.
 export const promo = {
   trialLabel: "1º mês grátis",
+  trialDays: 30,
   window: "do 2º ao 4º mês",
-  until: "31 de março de 2027"
+  until: "31 de março de 2027",
+  afterPrice: (monthly: string) => `Depois, ${monthly} por mês`,
+  annualLine: (installments: string) => `Ou plano anual em ${installments}`
 };
 
 export const hero = {
@@ -196,6 +209,12 @@ const plans: Plan[] = [
   }
 ];
 
+// "R$ 29,90 no Starter, R$ 59,90 no Growth e R$ 104,90 no Scale", a partir dos planos com preço promocional
+function promoPriceList(list: Plan[]) {
+  const items = list.filter((plan) => plan.promoMonthly).map((plan) => `${plan.promoMonthly} no ${plan.name}`);
+  return items.length > 1 ? `${items.slice(0, -1).join(", ")} e ${items[items.length - 1]}` : items.join("");
+}
+
 export const pricing = {
   title: "Preço pelo número de salas",
   lead: `Para estúdios que começarem até ${promo.until}: o primeiro mês é grátis e os três seguintes saem por cerca de 30% do preço.`,
@@ -208,11 +227,11 @@ export const faq = {
   items: [
     {
       question: "Como funciona o teste grátis?",
-      answer: "São 30 dias usando o EstudioHub na rotina real do estúdio, sem pagar nada. A gente configura as salas, os preços e os mensalistas com você e acompanha os primeiros dias."
+      answer: `São ${promo.trialDays} dias usando o EstudioHub na rotina real do estúdio, sem pagar nada. A gente configura as salas, os preços e os mensalistas com você e acompanha os primeiros dias.`
     },
     {
       question: "Como funciona a promoção?",
-      answer: `Para estúdios novos que começarem o teste até ${promo.until}: o primeiro mês é grátis e as três mensalidades seguintes saem por cerca de 30% do preço (R$ 29,90 no Starter, R$ 59,90 no Growth e R$ 104,90 no Scale). A promoção vale no plano mensal. A partir do 5º mês, a mensalidade volta ao valor cheio do plano.`
+      answer: `Para estúdios novos que começarem o teste até ${promo.until}: o primeiro mês é grátis e as três mensalidades seguintes saem por cerca de 30% do preço (${promoPriceList(plans)}). A promoção vale só no plano mensal. A partir do 5º mês, a mensalidade volta ao valor cheio do plano.`
     },
     {
       question: "Como é a migração do que eu uso hoje?",

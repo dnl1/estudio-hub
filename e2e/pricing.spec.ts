@@ -82,7 +82,10 @@ test("dúvidas explicam o teste de 30 dias, a promoção e o anual em 12x", asyn
   await expect(items.nth(1)).toContainText("até 31 de março de 2027");
   await expect(items.nth(1)).toContainText("A partir do 5º mês, a mensalidade volta ao valor cheio do plano.");
   await expect(items.nth(3)).toContainText("até 12x sem juros no cartão");
+  await expect(items.nth(1)).toContainText("A promoção vale só no plano mensal.");
+  await expect(items.nth(1)).toContainText("R$ 29,90 no Starter, R$ 59,90 no Growth e R$ 104,90 no Scale");
   await expect(page.locator("body")).not.toContainText("14 dias");
+  await expect(page.locator("body")).not.toContainText("semestre");
 });
 
 test("link do menu leva a seção para baixo do topo fixo", async ({ page }) => {
@@ -109,5 +112,14 @@ for (const width of [1024, 1280]) {
       const lines = await prices.evaluateAll((items) => items.map((item) => item.getClientRects().length));
       expect(lines).toEqual([1, 1, 1]);
     }
+  });
+}
+
+for (const width of [1024, 1280]) {
+  test(`os quatro nomes de plano ficam na mesma altura em ${width}px`, async ({ page }) => {
+    await open(page, width);
+    const tops = await page.locator("#precos .plan h3").evaluateAll((items) => items.map((item) => item.getBoundingClientRect().y));
+    expect(tops).toHaveLength(4);
+    for (const top of tops) expect(top).toBeCloseTo(tops[0], 0);
   });
 }
