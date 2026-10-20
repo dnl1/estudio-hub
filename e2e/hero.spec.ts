@@ -130,3 +130,11 @@ for (const width of [320, 390, 1440]) {
     expect(crossings, "a linha cruzou algum texto em algum horário").toBeGreaterThan(0);
   });
 }
+
+test("nota do topo anuncia o primeiro mês grátis", async ({ page }) => {
+  await open(page, 390, 844);
+  await expect(page.locator(".hero__note")).toHaveText("1º mês grátis, com a gente acompanhando.");
+  const description = await page.locator('meta[name="description"]').getAttribute("content");
+  expect(description).toContain("1º mês grátis.");
+  expect(description).not.toContain("14 dias");
+});

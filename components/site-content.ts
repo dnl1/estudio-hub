@@ -22,7 +22,7 @@ export const hero = {
   title: "A agenda das salas, as comandas e os pagamentos do seu estúdio num lugar só.",
   lead: "Sem conflito de horário e sem consumo que não fecha no fim do mês.",
   cta: "Agendar demonstração de 15 min",
-  note: "14 dias grátis, com a gente acompanhando."
+  note: `${promo.trialLabel}, com a gente acompanhando.`
 };
 
 export type BookingKind = "mensal" | "avulsa" | "bloqueio";
@@ -150,7 +150,7 @@ export const steps = {
   items: [
     { title: "Conversa de 15 minutos", text: "Pelo WhatsApp, a gente entende como o seu estúdio funciona hoje." },
     { title: "Configuração com você", text: "Salas, preços, mensalistas e equipe, com a gente do lado." },
-    { title: "14 dias grátis", text: "Você usa na rotina real, com acompanhamento." },
+    { title: promo.trialLabel, text: "Você usa na rotina real, com acompanhamento." },
     { title: "Escolha do plano", text: "Pelo número de salas ativas, sem surpresa no valor." }
   ]
 };
@@ -208,7 +208,11 @@ export const faq = {
   items: [
     {
       question: "Como funciona o teste grátis?",
-      answer: "São 14 dias usando o EstudioHub na rotina real do estúdio, sem pagar nada. A gente configura as salas, os preços e os mensalistas com você e acompanha os primeiros dias."
+      answer: "São 30 dias usando o EstudioHub na rotina real do estúdio, sem pagar nada. A gente configura as salas, os preços e os mensalistas com você e acompanha os primeiros dias."
+    },
+    {
+      question: "Como funciona a promoção?",
+      answer: `Para estúdios novos que começarem o teste até ${promo.until}: o primeiro mês é grátis e as três mensalidades seguintes saem por cerca de 30% do preço (R$ 29,90 no Starter, R$ 59,90 no Growth e R$ 104,90 no Scale). A promoção vale no plano mensal. A partir do 5º mês, a mensalidade volta ao valor cheio do plano.`
     },
     {
       question: "Como é a migração do que eu uso hoje?",
@@ -216,7 +220,7 @@ export const faq = {
     },
     {
       question: "Como funciona a cobrança da assinatura?",
-      answer: "Você escolhe pagar por mês, por semestre ou por ano, e acompanha a assinatura e as faturas pelo painel."
+      answer: "Você paga por mês ou por ano, e o anual pode ser parcelado em até 12x sem juros no cartão. A assinatura e as faturas ficam no painel."
     },
     {
       question: "Qual plano eu escolho?",

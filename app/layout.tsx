@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
+import { promo } from "@/components/site-content";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import "./globals.css";
 
@@ -12,7 +13,7 @@ const archivo = Archivo({
 
 const siteTitle = "EstudioHub | Agenda, comandas e pagamentos para estúdios";
 const siteDescription =
-  "Sistema para estúdios de ensaio, gravação e escolas de música: agenda das salas sem conflito, comandas de consumo e pagamentos num lugar só. Teste grátis por 14 dias.";
+  `Sistema para estúdios de ensaio, gravação e escolas de música: agenda das salas sem conflito, comandas de consumo e pagamentos num lugar só. ${promo.trialLabel}.`;
 
 // As imagens são geradas no build por app/og-image.png, app/icon-64.png e app/apple-touch-icon.png.
 // Os endereços terminam em .png para a hospedagem servir com o tipo certo (image/png).

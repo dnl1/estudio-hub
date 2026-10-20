@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { promo } from "@/components/site-content";
 import { Monogram, brandColors, brandFonts } from "@/components/brand-image";
 
 export const dynamic = "force-static";
@@ -28,7 +29,7 @@ export async function GET() {
           A agenda das salas, as comandas e os pagamentos do seu estúdio num lugar só.
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 30 }}>
-          <span style={{ color: brandColors.ambar }}>14 dias grátis</span>
+          <span style={{ color: brandColors.ambar }}>{promo.trialLabel}</span>
           <span style={{ color: "rgba(255, 255, 255, 0.72)" }}>estudio-hub.com</span>
         </div>
       </div>

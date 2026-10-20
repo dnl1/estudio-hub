@@ -6,7 +6,7 @@ test("como começar tem os quatro passos em ordem", async ({ page }) => {
   await expect(page.locator("#como-comecar ol > li strong")).toHaveText([
     "Conversa de 15 minutos",
     "Configuração com você",
-    "14 dias grátis",
+    "1º mês grátis",
     "Escolha do plano"
   ]);
 });
@@ -59,11 +59,30 @@ test("no plano, o selo vem antes do nome e o preço cheio é texto pequeno e leg
 test("dúvidas abrem e fecham", async ({ page }) => {
   await open(page, 1280);
   const items = page.locator("#duvidas details");
-  await expect(items).toHaveCount(6);
+  await expect(items).toHaveCount(7);
   const first = items.first();
   await expect(first.locator("p")).toBeHidden();
   await first.locator("summary").click();
   await expect(first.locator("p")).toBeVisible();
+});
+
+test("dúvidas explicam o teste de 30 dias, a promoção e o anual em 12x", async ({ page }) => {
+  await open(page, 1280);
+  const items = page.locator("#duvidas details");
+  await expect(items.locator("summary")).toHaveText([
+    "Como funciona o teste grátis?",
+    "Como funciona a promoção?",
+    "Como é a migração do que eu uso hoje?",
+    "Como funciona a cobrança da assinatura?",
+    "Qual plano eu escolho?",
+    "Meus dados ficam seguros?",
+    "Funciona fora de São Paulo?"
+  ]);
+  await expect(items.nth(0)).toContainText("São 30 dias usando o EstudioHub");
+  await expect(items.nth(1)).toContainText("até 31 de março de 2027");
+  await expect(items.nth(1)).toContainText("A partir do 5º mês, a mensalidade volta ao valor cheio do plano.");
+  await expect(items.nth(3)).toContainText("até 12x sem juros no cartão");
+  await expect(page.locator("body")).not.toContainText("14 dias");
 });
 
 test("link do menu leva a seção para baixo do topo fixo", async ({ page }) => {
