@@ -11,24 +11,49 @@ test("como começar tem os quatro passos em ordem", async ({ page }) => {
   ]);
 });
 
-test("preços batem com os planos do sistema", async ({ page }) => {
+test("preços mostram a promoção, o preço cheio e o anual em 12x", async ({ page }) => {
   await open(page, 1280);
   const section = page.locator("#precos");
+  await expect(section.locator(".section-head p")).toHaveText(
+    "Para estúdios que começarem até 31 de março de 2027: o primeiro mês é grátis e os três seguintes saem por cerca de 30% do preço."
+  );
   const plans = section.locator(".plan");
   await expect(plans.locator("h3")).toHaveText(["Starter", "Growth", "Scale", "Enterprise"]);
   const expected = [
-    ["Até 2 salas", "R$ 99,90", "R$ 499,90 a cada 6 meses (R$ 83,32 por mês)", "R$ 899,90 por ano (R$ 74,99 por mês)"],
-    ["De 3 a 5 salas", "R$ 199,90", "R$ 999,90 a cada 6 meses (R$ 166,65 por mês)", "R$ 1.799,90 por ano (R$ 149,99 por mês)"],
-    ["De 6 a 10 salas", "R$ 349,90", "R$ 1.749,90 a cada 6 meses (R$ 291,65 por mês)", "R$ 3.149,90 por ano (R$ 262,49 por mês)"],
-    ["11 salas ou mais", "Sob consulta"]
+    ["Até 2 salas", "R$ 29,90", "Depois, R$ 99,90 por mês", "Ou plano anual em 12x de R$ 74,99 (R$ 899,90)"],
+    ["De 3 a 5 salas", "R$ 59,90", "Depois, R$ 199,90 por mês", "Ou plano anual em 12x de R$ 149,99 (R$ 1.799,90)"],
+    ["De 6 a 10 salas", "R$ 104,90", "Depois, R$ 349,90 por mês", "Ou plano anual em 12x de R$ 262,49 (R$ 3.149,90)"]
   ];
   for (const [index, texts] of expected.entries()) {
-    for (const text of texts) await expect(plans.nth(index)).toContainText(text);
+    const plan = plans.nth(index);
+    await expect(plan.locator(".plan__badge")).toHaveText("1º mês grátis");
+    await expect(plan.locator(".plan__price")).toContainText(texts[1]);
+    await expect(plan.locator(".plan__window")).toHaveText("do 2º ao 4º mês");
+    for (const text of [texts[0], texts[2], texts[3]]) await expect(plan).toContainText(text);
   }
-  await expect(section).toContainText("14 dias grátis");
+  const enterprise = plans.nth(3);
+  await expect(enterprise).toContainText("11 salas ou mais");
+  await expect(enterprise).toContainText("Sob consulta");
+  await expect(enterprise.locator(".plan__badge")).toHaveCount(0);
+  await expect(section).not.toContainText("a cada 6 meses");
   await expect(section).toContainText(
     "Em uso no Warzone, estúdio de ensaio em Santos (SP), nas unidades Canal 1 e Canal 3."
   );
+});
+
+test("no plano, o selo vem antes do nome e o preço cheio é texto pequeno e legível", async ({ page }) => {
+  await open(page, 390, 844);
+  const starter = page.locator("#precos .plan").first();
+  const text = (await starter.innerText()).replace(/\s+/g, " ");
+  expect(text.indexOf("1º mês grátis")).toBeLessThan(text.indexOf("Starter"));
+  const original = starter.locator(".plan__original");
+  const style = await original.evaluate((element) => {
+    const computed = getComputedStyle(element);
+    return { size: computed.fontSize, color: computed.color };
+  });
+  expect(style.size).toBe("12px");
+  const muted = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--tinta-suave").trim());
+  expect(style.color.replace(/\s/g, "")).toBe(muted.replace(/\s/g, ""));
 });
 
 test("dúvidas abrem e fecham", async ({ page }) => {

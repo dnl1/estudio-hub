@@ -12,6 +12,12 @@ export const navLinks: LinkItem[] = [
   { href: "#duvidas", label: "Dúvidas" }
 ];
 
+export const promo = {
+  trialLabel: "1º mês grátis",
+  window: "do 2º ao 4º mês",
+  until: "31 de março de 2027"
+};
+
 export const hero = {
   title: "A agenda das salas, as comandas e os pagamentos do seu estúdio num lugar só.",
   lead: "Sem conflito de horário e sem consumo que não fecha no fim do mês.",
@@ -152,8 +158,9 @@ export const steps = {
 export type Plan = {
   name: string;
   rooms: string;
+  promoMonthly: string | null;
   monthly: string | null;
-  cycles: string[];
+  annualInstallments: string | null;
   custom?: string;
 };
 
@@ -161,27 +168,37 @@ const plans: Plan[] = [
   {
     name: "Starter",
     rooms: "Até 2 salas",
+    promoMonthly: "R$ 29,90",
     monthly: "R$ 99,90",
-    cycles: ["R$ 499,90 a cada 6 meses (R$ 83,32 por mês)", "R$ 899,90 por ano (R$ 74,99 por mês)"]
+    annualInstallments: "12x de R$ 74,99 (R$ 899,90)"
   },
   {
     name: "Growth",
     rooms: "De 3 a 5 salas",
+    promoMonthly: "R$ 59,90",
     monthly: "R$ 199,90",
-    cycles: ["R$ 999,90 a cada 6 meses (R$ 166,65 por mês)", "R$ 1.799,90 por ano (R$ 149,99 por mês)"]
+    annualInstallments: "12x de R$ 149,99 (R$ 1.799,90)"
   },
   {
     name: "Scale",
     rooms: "De 6 a 10 salas",
+    promoMonthly: "R$ 104,90",
     monthly: "R$ 349,90",
-    cycles: ["R$ 1.749,90 a cada 6 meses (R$ 291,65 por mês)", "R$ 3.149,90 por ano (R$ 262,49 por mês)"]
+    annualInstallments: "12x de R$ 262,49 (R$ 3.149,90)"
   },
-  { name: "Enterprise", rooms: "11 salas ou mais", monthly: null, cycles: [], custom: "Sob consulta" }
+  {
+    name: "Enterprise",
+    rooms: "11 salas ou mais",
+    promoMonthly: null,
+    monthly: null,
+    annualInstallments: null,
+    custom: "Sob consulta"
+  }
 ];
 
 export const pricing = {
   title: "Preço pelo número de salas",
-  lead: "Todo plano começa com 14 dias grátis. Depois, o valor depende de quantas salas estão ativas.",
+  lead: `Para estúdios que começarem até ${promo.until}: o primeiro mês é grátis e os três seguintes saem por cerca de 30% do preço.`,
   plans,
   client: "Em uso no Warzone, estúdio de ensaio em Santos (SP), nas unidades Canal 1 e Canal 3."
 };

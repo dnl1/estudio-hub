@@ -1,6 +1,6 @@
 import { NightGrid } from "@/components/night-grid";
 import { ProductShot } from "@/components/product-shot";
-import { CONTACT_EMAIL, audience, contact, extras, faq, hero, pricing, productSection, steps } from "@/components/site-content";
+import { CONTACT_EMAIL, audience, contact, extras, faq, hero, pricing, productSection, promo, steps } from "@/components/site-content";
 import { StickyCta } from "@/components/sticky-cta";
 import { DemoButton } from "@/components/whatsapp";
 import { WhatsAppBubble } from "@/components/whatsapp-bubble";
@@ -106,25 +106,20 @@ export default function HomePage() {
             </div>
             <ul className="plans">
               {pricing.plans.map((plan) => (
-                <li className="plan" key={plan.name}>
+                <li className={plan.promoMonthly ? "plan" : "plan plan--sem-selo"} key={plan.name}>
+                  {plan.promoMonthly ? <span className="plan__badge">{promo.trialLabel}</span> : null}
                   <h3>{plan.name}</h3>
                   <p className="plan__rooms">{plan.rooms}</p>
-                  {plan.monthly ? (
+                  {plan.promoMonthly ? (
                     <>
                       <p className="plan__price">
-                        {plan.monthly} <span>por mês</span>
+                        {plan.promoMonthly} <span>por mês</span>
                       </p>
-                      <ul className="plan__cycles">
-                        {plan.cycles.map((cycle) => {
-                          // "R$ 499,90 a cada 6 meses (R$ 83,32 por mês)": o valor por mês vai numa linha própria
-                          const [total, perMonth] = cycle.split(" (");
-                          return (
-                            <li key={cycle}>
-                              {total} <span className="plan__per-month">({perMonth}</span>
-                            </li>
-                          );
-                        })}
-                      </ul>
+                      <p className="plan__window">{promo.window}</p>
+                      <p className="plan__original">
+                        <span>Depois, {plan.monthly} por mês</span>
+                        <span>Ou plano anual em {plan.annualInstallments}</span>
+                      </p>
                     </>
                   ) : (
                     <p className="plan__price">{plan.custom}</p>

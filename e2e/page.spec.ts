@@ -43,7 +43,8 @@ test.describe("sem JavaScript", () => {
     await page.goto("/");
     await expect(page.locator("#topo h1")).toBeVisible();
     await expect(page.locator("#hero-cta")).toBeVisible();
-    await expect(page.locator("#precos")).toContainText("R$ 99,90");
+    await expect(page.locator("#precos")).toContainText("R$ 29,90");
+    await expect(page.locator("#precos")).toContainText("Depois, R$ 99,90 por mês");
     await expect(page.locator("#contato")).toContainText("Agendar demonstração");
   });
 });
