@@ -1,18 +1,23 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import eslint from "@eslint/js";
+import globals from "globals";
+import astro from "eslint-plugin-astro";
+import tseslint from "typescript-eslint";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default [
   {
-    ignores: ["node_modules/**", ".next/**", "out/**", "next-env.d.ts", "test-results/**", "playwright-report/**"]
+    ignores: ["node_modules/**", "out/**", "dist/**", "test-results/**", "playwright-report/**", ".astro/**"]
+  },
+  eslint.configs.recommended,
+  {
+    files: ["**/*.{js,mjs,cjs}"],
+    languageOptions: { globals: globals.node }
+  },
+  ...tseslint.configs.recommended,
+  ...astro.configs.recommended,
+  {
+    rules: {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    }
   }
 ];
-
-export default eslintConfig;

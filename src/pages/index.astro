@@ -1,0 +1,143 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NightGrid from "../components/NightGrid.astro";
+import OldAnchor from "../components/OldAnchor.astro";
+import ProductShot from "../components/ProductShot.astro";
+import { CONTACT_EMAIL, audience, contact, extras, faq, hero, pricing, productSection, promo, steps } from "../components/site-content";
+import StickyCta from "../components/StickyCta.astro";
+import DemoButton from "../components/DemoButton.astro";
+import WhatsAppBubble from "../components/WhatsAppBubble.astro";
+import PriceText from "../components/PriceText.astro";
+
+const siteTitle = "EstudioHub | Agenda, comandas e pagamentos para estúdios";
+const siteDescription = `Sistema para estúdios de ensaio, gravação e escolas de música: agenda das salas sem conflito, comandas de consumo e pagamentos num lugar só. ${promo.trialLabel}.`;
+---
+
+<Layout title={siteTitle} description={siteDescription}>
+  <main id="conteudo">
+    <section class="hero" id="topo" aria-labelledby="topo-titulo">
+      <OldAnchor id="home" />
+      <div class="container">
+        <h1 id="topo-titulo">{hero.title}</h1>
+        <p class="hero__lead">{hero.lead}</p>
+        <div class="hero__cta">
+          <DemoButton id="hero-cta">{hero.cta}</DemoButton>
+          <p class="hero__note">{hero.note}</p>
+        </div>
+        <NightGrid />
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona" aria-labelledby="como-funciona-titulo">
+      <OldAnchor id="funcionalidades" />
+      <div class="container">
+        <div class="section-head">
+          <h2 id="como-funciona-titulo">{productSection.title}</h2>
+          <p>{productSection.lead}</p>
+        </div>
+        <div class="product-rows">
+          {productSection.rows.map((row) => (
+            <article class="product-row">
+              <div class="product-row__text">
+                <h3>{row.title}</h3>
+                <p>{row.text}</p>
+              </div>
+              <div class="product-row__media">
+                <ProductShot {...row.shot} />
+                {row.bubble && <WhatsAppBubble />}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--espuma" id="tambem-tem" aria-labelledby="tambem-tem-titulo">
+      <OldAnchor id="integracoes" />
+      <div class="container">
+        <div class="section-head"><h2 id="tambem-tem-titulo">{extras.title}</h2></div>
+        <ul class="feature-list">
+          {extras.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="para-quem" aria-labelledby="para-quem-titulo">
+      <OldAnchor id="sobre" />
+      <div class="container">
+        <div class="section-head"><h2 id="para-quem-titulo">{audience.title}</h2></div>
+        <ul class="audience-list">
+          {audience.items.map((item) => <li><strong>{item.title}</strong><span>{item.text}</span></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--espuma" id="como-comecar" aria-labelledby="como-comecar-titulo">
+      <div class="container">
+        <div class="section-head"><h2 id="como-comecar-titulo">{steps.title}</h2></div>
+        <ol class="steps">
+          {steps.items.map((step) => <li><strong>{step.title}</strong><p>{step.text}</p></li>)}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="precos" aria-labelledby="precos-titulo">
+      <OldAnchor id="planos" />
+      <div class="container">
+        <div class="section-head">
+          <h2 id="precos-titulo">{pricing.title}</h2>
+          <p>{pricing.lead}</p>
+        </div>
+        <ul class="plans">
+          {pricing.plans.map((plan) => (
+            <li class={plan.promoMonthly ? "plan" : "plan plan--sem-selo"}>
+              {plan.promoMonthly && <span class="plan__badge">{promo.trialLabel}</span>}
+              <h3>{plan.name}</h3>
+              <p class="plan__rooms">{plan.rooms}</p>
+              {plan.promoMonthly ? (
+                <>
+                  <p class="plan__price">{plan.promoMonthly} <span>por mês</span></p>
+                  <p class="plan__window">{promo.window}</p>
+                  <p class="plan__original">
+                    <span><PriceText text={promo.afterPrice(plan.monthly ?? "")} /></span>
+                    <span><PriceText text={promo.annualLine(plan.annualInstallments ?? "")} /></span>
+                  </p>
+                </>
+              ) : plan.monthly ? (
+                <>
+                  <p class="plan__price">{plan.monthly} <span>por mês</span></p>
+                  <p class="plan__original"><span><PriceText text={promo.annualLine(plan.annualInstallments ?? "")} /></span></p>
+                </>
+              ) : (
+                <p class="plan__price">{plan.custom}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+        <p class="client-line">{pricing.client}</p>
+      </div>
+    </section>
+
+    <section class="section section--espuma" id="duvidas" aria-labelledby="duvidas-titulo">
+      <OldAnchor id="seguranca" />
+      <div class="container">
+        <div class="section-head"><h2 id="duvidas-titulo">{faq.title}</h2></div>
+        <div class="faq">
+          {faq.items.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contato" aria-labelledby="contato-titulo">
+      <div class="container">
+        <h2 id="contato-titulo">{contact.title}</h2>
+        <p class="contact__lead">{contact.lead}</p>
+        <div class="contact__actions">
+          <DemoButton>{contact.cta}</DemoButton>
+          <p>{contact.emailIntro} <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <StickyCta />
+</Layout>

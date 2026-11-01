@@ -52,7 +52,14 @@ test("no plano, o selo vem antes do nome e o preço cheio é texto pequeno e leg
     return { size: computed.fontSize, color: computed.color };
   });
   expect(style.size).toBe("12px");
-  const muted = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--tinta-suave").trim());
+  const muted = await page.evaluate(() => {
+    const sample = document.createElement("span");
+    sample.style.color = "var(--tinta-suave)";
+    document.body.append(sample);
+    const color = getComputedStyle(sample).color;
+    sample.remove();
+    return color;
+  });
   expect(style.color.replace(/\s/g, "")).toBe(muted.replace(/\s/g, ""));
 });
 

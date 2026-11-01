@@ -1,0 +1,82 @@
+---
+import SiteChrome from "../components/SiteChrome.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = "EstudioHub | Agenda, comandas e pagamentos para estúdios",
+  description = "Sistema para estúdios de ensaio, gravação e escolas de música: agenda das salas sem conflito, comandas de consumo e pagamentos num lugar só. 1º mês grátis.",
+  noindex = false
+} = Astro.props;
+const canonical = "https://estudio-hub.com/";
+const ogTitle = title;
+const ogDescription = description;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "EstudioHub",
+      url: canonical,
+      inLanguage: "pt-BR"
+    },
+    {
+      "@type": "Organization",
+      name: "EstudioHub",
+      url: canonical,
+      email: "contato@estudio-hub.com"
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "EstudioHub",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      url: canonical,
+      description: "Sistema para agenda de salas, comandas e pagamentos de estúdios."
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+    <meta name="theme-color" content="#1f2125" />
+    <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <noscript><link rel="stylesheet" href="/no-js.css" /></noscript>
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/icon-64.png" type="image/png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="EstudioHub" />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content="https://estudio-hub.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="EstudioHub: agenda, comandas e pagamentos para estúdios" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content="https://estudio-hub.com/og-image.png" />
+    <meta name="twitter:image:alt" content="EstudioHub: agenda, comandas e pagamentos para estúdios" />
+    <title>{title}</title>
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <SiteChrome />
+    <slot />
+    <SiteChrome footer />
+  </body>
+</html>

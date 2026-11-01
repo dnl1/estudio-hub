@@ -1,0 +1,16 @@
+---
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { jpegSize } from "../lib/jpeg-size";
+import type { ProductShotImage } from "./site-content";
+
+const { src, alt, crop = false, narrow = false } = Astro.props as ProductShotImage;
+const relativePath = src.replace(/^\/+/, "");
+const { width, height } = jpegSize(readFileSync(join(process.cwd(), "public", relativePath)), src);
+---
+
+<figure class={`shot${crop ? " shot--recorte" : ""}${narrow ? " shot--estreita" : ""}`}>
+  <div class="shot__viewport">
+    <img src={src} alt={alt} width={width / 2} height={height / 2} loading="lazy" decoding="async" />
+  </div>
+</figure>

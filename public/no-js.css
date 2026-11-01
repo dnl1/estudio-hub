@@ -1,0 +1,33 @@
+@media (max-width: 899px) {
+  html .site-header {
+    position: static;
+  }
+
+  html .header-inner {
+    flex-wrap: wrap;
+    padding-block: 12px;
+  }
+
+  html .site-nav {
+    display: block;
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  html .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 0;
+  }
+
+  html .nav-list a {
+    display: inline-block;
+    padding-block: 8px;
+    font-weight: 600;
+  }
+
+  html .menu-toggle {
+    display: none;
+  }
+}

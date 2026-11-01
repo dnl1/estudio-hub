@@ -1,0 +1,15 @@
+---
+import BookingDate from "./BookingDate.astro";
+import { nextTuesday } from "../lib/next-tuesday";
+import { whatsappConfirmation } from "./site-content";
+
+const [beforeDate, afterDate] = whatsappConfirmation.text.split("{data}");
+---
+
+<figure class="wa-bubble">
+  <figcaption class="wa-bubble__caption">{whatsappConfirmation.caption}</figcaption>
+  <p class="wa-bubble__text">
+    {beforeDate}<BookingDate fallback={nextTuesday(new Date())} />{afterDate}
+    <span class="wa-bubble__time">{whatsappConfirmation.time}</span>
+  </p>
+</figure>

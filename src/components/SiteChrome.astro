@@ -1,0 +1,46 @@
+---
+import { ADMIN_URL, CONTACT_EMAIL, footer, navLinks } from "./site-content";
+import DemoButton from "./DemoButton.astro";
+
+interface Props { footer?: boolean }
+const { footer: isFooter = false } = Astro.props;
+const homePrefix = Astro.url.pathname === "/" ? "" : "/";
+const whatsappNumber = "5511974571064";
+const whatsappDisplay = "+55 (11) 97457-1064";
+const demoMessage = "Oi! Quero agendar a demonstração de 15 min do EstudioHub.";
+const demoUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(demoMessage)}`;
+---
+
+{isFooter ? (
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">EstudioHub</p>
+        <p>{footer.text}</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href={demoUrl} target="_blank" rel="noreferrer">WhatsApp {whatsappDisplay}</a></li>
+        <li><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
+        <li><a href={ADMIN_URL} target="_blank" rel="noreferrer">Entrar no sistema</a></li>
+      </ul>
+    </div>
+  </footer>
+) : (
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href={`${homePrefix}#topo`}>EstudioHub</a>
+      <nav id="main-navigation" class="site-nav" aria-label="Navegação principal">
+        <ul class="nav-list">
+          {navLinks.map((item) => <li><a href={`${homePrefix}${item.href}`}>{item.label}</a></li>)}
+          <li><a href={ADMIN_URL} target="_blank" rel="noreferrer">Entrar</a></li>
+        </ul>
+      </nav>
+      <DemoButton class="header-cta" />
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+)}
+
+{!isFooter && <script src="../scripts/menu.ts"></script>}

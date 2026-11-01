@@ -1,0 +1,14 @@
+---
+interface Props { startHour: number; endHour: number }
+const { startHour, endHour } = Astro.props;
+const fallbackHour = 21;
+const fallbackPosition = ((fallbackHour - startHour) / (endHour - startHour)) * 100;
+---
+
+<div class="playhead-lane" aria-hidden="true" data-start-hour={startHour} data-end-hour={endHour}>
+  <div class="playhead" data-position={fallbackPosition.toFixed(2)}>
+    <span class="playhead__label">agora</span>
+  </div>
+</div>
+
+<script src="../scripts/playhead.ts"></script>

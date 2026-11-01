@@ -3,10 +3,12 @@ import { expect, test } from "@playwright/test";
 type Rgb = [number, number, number];
 
 function parse(color: string): { rgb: Rgb; alpha: number } {
-  const hex = color.trim().match(/^#([0-9a-f]{6})$/i);
+  const hex = color.trim().match(/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i);
   if (hex) {
-    const value = parseInt(hex[1], 16);
-    return { rgb: [(value >> 16) & 255, (value >> 8) & 255, value & 255], alpha: 1 };
+    const expanded = hex[1].length <= 4 ? hex[1].split("").map((digit) => digit + digit).join("") : hex[1];
+    const value = parseInt(expanded.slice(0, 6), 16);
+    const alpha = expanded.length === 8 ? parseInt(expanded.slice(6), 16) / 255 : 1;
+    return { rgb: [(value >> 16) & 255, (value >> 8) & 255, value & 255], alpha };
   }
   const rgba = color.match(/rgba?\(([^)]+)\)/)!;
   const [r, g, b, a = "1"] = rgba[1].split(",").map((part) => part.trim());

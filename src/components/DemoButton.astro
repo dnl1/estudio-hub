@@ -1,0 +1,19 @@
+---
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+
+interface Props {
+  class?: string;
+  id?: string;
+}
+
+const { class: className = "", id } = Astro.props;
+const hasLabelSlot = Astro.slots.has("default");
+const whatsappNumber = "5511974571064";
+const demoMessage = "Oi! Quero agendar a demonstração de 15 min do EstudioHub.";
+const demoUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(demoMessage)}`;
+---
+
+<a id={id} class={`btn btn-demo ${className}`.trim()} href={demoUrl} target="_blank" rel="noreferrer">
+  <WhatsAppIcon />
+  <span>{hasLabelSlot ? <slot /> : "Agendar demonstração"}</span>
+</a>

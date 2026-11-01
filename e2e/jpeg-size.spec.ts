@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { jpegSize } from "../components/jpeg-size";
+import { jpegSize } from "../src/lib/jpeg-size";
 
 const segment = (marker: number, payload: number[]) => [0xff, marker, (payload.length + 2) >> 8, (payload.length + 2) & 0xff, ...payload];
 const sof = (marker: number, width: number, height: number) =>

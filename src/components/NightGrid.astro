@@ -1,0 +1,33 @@
+---
+import Playhead from "./Playhead.astro";
+import { bookingKindLabel, nightGrid } from "./site-content";
+
+const hourLabel = (hour: number) => `${String(hour % 24).padStart(2, "0")}h`;
+const { caption, startHour, endHour, rooms, bookings } = nightGrid;
+const hours = Array.from({ length: endHour - startHour + 1 }, (_, index) => startHour + index);
+---
+
+<figure class="night-grid">
+  <figcaption class="night-grid__caption">{caption}</figcaption>
+  <div class="night-grid__board">
+    <div class="night-grid__ruler" aria-hidden="true">
+      {hours.map((hour, index) => <span class={`night-grid__tick--${index}`}>{hourLabel(hour)}</span>)}
+    </div>
+    {rooms.map((room) => (
+      <div class="night-grid__room">
+        <span class="night-grid__room-name" aria-hidden="true">{room}</span>
+        <ul class="night-grid__track" role="list" aria-label={room}>
+          {bookings.filter((booking) => booking.room === room).map((booking) => (
+            <li class={`booking booking--${booking.kind} booking--start-${booking.start} booking--duration-${booking.end - booking.start}`}>
+              <span class="booking__label">{booking.label}</span>
+              <span class="booking__kind">{bookingKindLabel[booking.kind]}</span>
+              <span class="sr-only">, das {hourLabel(booking.start)} às {hourLabel(booking.end)}</span>
+              {booking.tab && <span class="booking__tab">{booking.tab}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+    <Playhead startHour={startHour} endHour={endHour} />
+  </div>
+</figure>

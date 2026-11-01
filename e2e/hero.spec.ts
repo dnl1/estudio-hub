@@ -100,9 +100,8 @@ for (const width of [320, 390, 1440]) {
       const result = await page.evaluate(() => {
         document.querySelector(".night-grid")!.scrollIntoView({ block: "center", behavior: "instant" });
         // A linha não recebe clique; aqui ela passa a receber, para saber o que fica por cima em cada ponto.
-        const probe = document.createElement("style");
-        probe.textContent = ".playhead-lane, .playhead-lane * { pointer-events: auto !important; }";
-        document.head.append(probe);
+        const probes = [...document.querySelectorAll<HTMLElement>(".playhead-lane, .playhead-lane *")];
+        for (const probe of probes) probe.style.pointerEvents = "auto";
         const line = document.querySelector(".playhead")!.getBoundingClientRect();
         const x = line.left + line.width / 2;
         const label = document.querySelector(".playhead__label")!.getBoundingClientRect();
@@ -121,7 +120,7 @@ for (const width of [320, 390, 1440]) {
           const top = document.elementFromPoint(x, box.top + box.height / 2);
           if (!top || !(top === text || text.contains(top))) covered.push(`a linha passa por cima de ${text.textContent}`);
         }
-        probe.remove();
+        for (const probe of probes) probe.style.removeProperty("pointer-events");
         return { covered, crossings };
       });
       expect(result.covered, `às ${moment}`).toEqual([]);
